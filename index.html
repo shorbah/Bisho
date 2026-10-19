@@ -846,6 +846,180 @@
             z-index: 2;
         }
 
+        /* In-Browser Interactive Image Replacer UI (Method #3) */
+        .btn-replace-img {
+            position: absolute;
+            inset-inline-end: 0.85rem;
+            inset-block-start: 0.85rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--color-gold-border);
+            color: var(--color-gold-bright);
+            font-family: var(--font-body);
+            font-size: 0.775rem;
+            font-weight: 600;
+            padding-inline: 0.7rem;
+            padding-block: 0.35rem;
+            border-radius: var(--radius-full);
+            backdrop-filter: blur(10px);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            cursor: pointer;
+            z-index: 4;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            transition: var(--transition-smooth);
+            user-select: none;
+        }
+
+        .btn-replace-img:hover {
+            background: var(--color-gold);
+            color: #030710;
+            border-color: var(--color-gold-bright);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .btn-replace-img svg {
+            inline-size: 13px;
+            block-size: 13px;
+            stroke: currentColor;
+            flex-shrink: 0;
+        }
+
+        .btn-replace-img-modal {
+            position: absolute;
+            inset-inline-end: 1rem;
+            inset-block-start: 1rem;
+            background: rgba(3, 7, 16, 0.88);
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold-bright);
+            font-family: var(--font-body);
+            font-size: 0.825rem;
+            font-weight: 600;
+            padding-inline: 0.95rem;
+            padding-block: 0.45rem;
+            border-radius: var(--radius-full);
+            backdrop-filter: blur(12px);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-replace-img-modal:hover {
+            background: var(--color-gold);
+            color: #030710;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        /* Gallery Customizer Status & Action Toolbar */
+        .gallery-customizer-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            background: var(--bg-card);
+            border: 1px dashed var(--color-gold-border);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1.25rem;
+            margin-block-end: 2rem;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .customizer-status {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .customizer-dot {
+            inline-size: 9px;
+            block-size: 9px;
+            border-radius: var(--radius-full);
+            background-color: var(--color-emerald);
+            box-shadow: 0 0 10px var(--color-emerald);
+            flex-shrink: 0;
+        }
+
+        .customizer-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-customizer {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.825rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+            padding-inline: 0.9rem;
+            padding-block: 0.45rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-surface);
+            color: var(--color-text-primary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-customizer:hover {
+            border-color: var(--color-gold-border);
+            color: var(--color-gold-bright);
+            transform: translateY(-1px);
+        }
+
+        .btn-customizer-export {
+            background: var(--color-gold-muted);
+            border-color: var(--color-gold-border);
+            color: var(--color-gold-bright);
+        }
+
+        .btn-customizer-export:hover {
+            background: var(--color-gold);
+            color: #030710;
+            border-color: var(--color-gold);
+        }
+
+        /* Toast Floating Notification */
+        .toast-notification {
+            position: fixed;
+            inset-block-end: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-surface);
+            border: 1px solid var(--color-gold);
+            color: var(--color-text-primary);
+            padding-inline: 1.5rem;
+            padding-block: 0.85rem;
+            border-radius: var(--radius-full);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), var(--shadow-gold);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.925rem;
+            font-weight: 600;
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+
+        .toast-notification.active {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         .work-card-body {
             padding: 1.5rem;
             display: flex;
@@ -1563,6 +1737,10 @@
             .top-navbar,
             .btn-presentation,
             .gallery-controls,
+            .gallery-customizer-toolbar,
+            .btn-replace-img,
+            .btn-replace-img-modal,
+            .toast-notification,
             .btn-view-work,
             .pres-controls-bar,
             .presentation-overlay,
@@ -1673,7 +1851,7 @@
 
             <div class="hero-profile-card">
                 <div class="hero-profile-avatar">
-                    <img src="assets/bashayer_profile.jpg" alt="بشاير شربه">
+                    <img src="assets/bashayer_profile.jpg" alt="بشاير شربه" data-img-key="profile">
                 </div>
                 <div class="hero-profile-meta">
                     <div class="hero-profile-name">بشاير شربه</div>
@@ -1708,7 +1886,11 @@
             <div class="about-grid">
                 <div class="about-portrait-frame">
                     <div class="about-portrait-inner">
-                        <img src="assets/bashayer_profile.jpg" alt="بشاير شربه في بيئة العمل المتحفي" class="about-portrait-img">
+                        <img src="assets/bashayer_profile.jpg" alt="بشاير شربه في بيئة العمل المتحفي" class="about-portrait-img" data-img-key="profile">
+                        <button type="button" class="btn-replace-img" title="استبدال صورة الملف الشخصي" onclick="triggerImageReplace(event, 'profile')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
                         <div class="portrait-stamp">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"></circle>
@@ -1892,14 +2074,43 @@
                 </div>
             </div>
 
+            <!-- In-Browser Image Customization & Persistence Toolbar (Method #3) -->
+            <div class="gallery-customizer-toolbar">
+                <div class="customizer-status" id="customizerStatus">
+                    <span class="customizer-dot"></span>
+                    <span id="customizerStatusText">الصور الافتراضية نشطة (انقر على «📷 تغيير الصورة» بأي بطاقة لاستبدالها مباشرة)</span>
+                </div>
+                <div class="customizer-actions">
+                    <button type="button" class="btn-customizer" onclick="resetAllCustomImages()" id="btnResetImages" style="display: none;" title="استعادة كافة الصور الافتراضية">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                        </svg>
+                        استعادة الصور الأصلية
+                    </button>
+                    <button type="button" class="btn-customizer btn-customizer-export" onclick="exportCustomizedPage()" title="تنزيل نسخة مستقلة من الموقع بالصور الجديدة">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        تحميل نسخة بالصور الجديدة
+                    </button>
+                </div>
+            </div>
+
             <!-- 9 Cards Grid -->
             <div class="gallery-grid" id="galleryGrid">
                 
                 <!-- Card 1: جدول الأعطال والمشكلات التقنية -->
                 <div class="work-card" data-category="tech" data-title="جدول الأعطال والمشكلات التقنية">
-                    <div class="work-card-media" onclick="openLightbox('assets/card1_jadwal_aatal.jpg', 'جدول الأعطال والمشكلات التقنية', 'نظام شامل لمتابعة وحصر البلاغات التقنية لضمان جاهزية المعروضات والشاشات التفاعلية باستمرار.', 'أنظمة وتقنية', 'جاهزية العرض اليومي بنسبة 99.4%')">
+                    <div class="work-card-media" onclick="openLightbox('assets/card1_jadwal_aatal.jpg', 'جدول الأعطال والمشكلات التقنية', 'نظام شامل لمتابعة وحصر البلاغات التقنية لضمان جاهزية المعروضات والشاشات التفاعلية باستمرار.', 'أنظمة وتقنية', 'جاهزية العرض اليومي بنسبة 99.4%', 'card1')">
                         <span class="work-card-badge">أنظمة وتشغيل</span>
-                        <img src="assets/card1_jadwal_aatal.jpg" alt="جدول الأعطال والمشكلات التقنية" class="work-card-img">
+                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card1')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
+                        <img src="assets/card1_jadwal_aatal.jpg" alt="جدول الأعطال والمشكلات التقنية" class="work-card-img" data-img-key="card1">
                     </div>
                     <div class="work-card-body">
                         <div>
@@ -1908,7 +2119,7 @@
                         </div>
                         <div class="work-card-footer">
                             <span class="work-card-category">أنظمة وتقنية</span>
-                            <button class="btn-view-work" onclick="openLightbox('assets/card1_jadwal_aatal.jpg', 'جدول الأعطال والمشكلات التقنية', 'نظام شامل لمتابعة وحصر البلاغات التقنية لضمان جاهزية المعروضات والشاشات التفاعلية باستمرار.', 'أنظمة وتقنية', 'جاهزية العرض اليومي بنسبة 99.4%')">
+                            <button class="btn-view-work" onclick="openLightbox('assets/card1_jadwal_aatal.jpg', 'جدول الأعطال والمشكلات التقنية', 'نظام شامل لمتابعة وحصر البلاغات التقنية لضمان جاهزية المعروضات والشاشات التفاعلية باستمرار.', 'أنظمة وتقنية', 'جاهزية العرض اليومي بنسبة 99.4%', 'card1')">
                                 معاينة المخرج ←
                             </button>
                         </div>
@@ -1917,9 +2128,13 @@
 
                 <!-- Card 2: التقرير النصف سنوي للمركز -->
                 <div class="work-card" data-category="docs" data-title="التقرير النصف سنوي للمركز">
-                    <div class="work-card-media" onclick="openLightbox('assets/card2_taqreer_nisf_sanawi.jpg', 'التقرير النصف سنوي للمركز', 'صياغة وتصميم التقرير النصف سنوي الشامل الذي يوثق إنجازات ومؤشرات أداء المركز أمام الإدارة العليا.', 'أدلة وتوثيق', 'توثيق 6 أشهر من الإنجاز المؤسسي')">
+                    <div class="work-card-media" onclick="openLightbox('assets/card2_taqreer_nisf_sanawi.jpg', 'التقرير النصف سنوي للمركز', 'صياغة وتصميم التقرير النصف سنوي الشامل الذي يوثق إنجازات ومؤشرات أداء المركز أمام الإدارة العليا.', 'أدلة وتوثيق', 'توثيق 6 أشهر من الإنجاز المؤسسي', 'card2')">
                         <span class="work-card-badge">تقارير إدارية</span>
-                        <img src="assets/card2_taqreer_nisf_sanawi.jpg" alt="التقرير النصف سنوي للمركز" class="work-card-img">
+                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card2')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
+                        <img src="assets/card2_taqreer_nisf_sanawi.jpg" alt="التقرير النصف سنوي للمركز" class="work-card-img" data-img-key="card2">
                     </div>
                     <div class="work-card-body">
                         <div>
@@ -1928,7 +2143,7 @@
                         </div>
                         <div class="work-card-footer">
                             <span class="work-card-category">أدلة وتوثيق</span>
-                            <button class="btn-view-work" onclick="openLightbox('assets/card2_taqreer_nisf_sanawi.jpg', 'التقرير النصف سنوي للمركز', 'صياغة وتصميم التقرير النصف سنوي الشامل الذي يوثق إنجازات ومؤشرات أداء المركز أمام الإدارة العليا.', 'أدلة وتوثيق', 'توثيق 6 أشهر من الإنجاز المؤسسي')">
+                            <button class="btn-view-work" onclick="openLightbox('assets/card2_taqreer_nisf_sanawi.jpg', 'التقرير النصف سنوي للمركز', 'صياغة وتصميم التقرير النصف سنوي الشامل الذي يوثق إنجازات ومؤشرات أداء المركز أمام الإدارة العليا.', 'أدلة وتوثيق', 'توثيق 6 أشهر من الإنجاز المؤسسي', 'card2')">
                                 معاينة المخرج ←
                             </button>
                         </div>
@@ -1937,9 +2152,13 @@
 
                 <!-- Card 3: دليل تشغيل المعرض -->
                 <div class="work-card" data-category="docs" data-title="دليل تشغيل المعرض">
-                    <div class="work-card-media" onclick="openLightbox('assets/card3_daleel_tashgheel.jpg', 'دليل تشغيل المعرض', 'وثيقة مرجعية متكاملة لإجراءات التشغيل اليومي، معايير استقبال الزوار، وبروتوكولات الجولات الإرشادية.', 'أدلة وتوثيق', 'حوكمة العمليات المتحفية')">
+                    <div class="work-card-media" onclick="openLightbox('assets/card3_daleel_tashgheel.jpg', 'دليل تشغيل المعرض', 'وثيقة مرجعية متكاملة لإجراءات التشغيل اليومي، معايير استقبال الزوار، وبروتوكولات الجولات الإرشادية.', 'أدلة وتوثيق', 'حوكمة العمليات المتحفية', 'card3')">
                         <span class="work-card-badge">حوكمة وتشغيل</span>
-                        <img src="assets/card3_daleel_tashgheel.jpg" alt="دليل تشغيل المعرض" class="work-card-img">
+                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card3')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
+                        <img src="assets/card3_daleel_tashgheel.jpg" alt="دليل تشغيل المعرض" class="work-card-img" data-img-key="card3">
                     </div>
                     <div class="work-card-body">
                         <div>
@@ -1948,7 +2167,7 @@
                         </div>
                         <div class="work-card-footer">
                             <span class="work-card-category">أدلة وتوثيق</span>
-                            <button class="btn-view-work" onclick="openLightbox('assets/card3_daleel_tashgheel.jpg', 'دليل تشغيل المعرض', 'وثيقة مرجعية متكاملة لإجراءات التشغيل اليومي، معايير استقبال الزوار، وبروتوكولات الجولات الإرشادية.', 'أدلة وتوثيق', 'حوكمة العمليات المتحفية')">
+                            <button class="btn-view-work" onclick="openLightbox('assets/card3_daleel_tashgheel.jpg', 'دليل تشغيل المعرض', 'وثيقة مرجعية متكاملة لإجراءات التشغيل اليومي، معايير استقبال الزوار، وبروتوكولات الجولات الإرشادية.', 'أدلة وتوثيق', 'حوكمة العمليات المتحفية', 'card3')">
                                 معاينة المخرج ←
                             </button>
                         </div>
@@ -1957,9 +2176,13 @@
 
                 <!-- Card 4: جدول متابعة التحديثات التقنية -->
                 <div class="work-card" data-category="tech" data-title="جدول متابعة التحديثات التقنية">
-                    <div class="work-card-media" onclick="openLightbox('assets/card4_mutabaat_tahdeethat.jpg', 'جدول متابعة التحديثات التقنية', 'أداة تشغيلية لمراقبة التحديثات الدورية للأنظمة والبرمجيات وضمان الأداء الأمثل للأجهزة والشاشات.', 'أنظمة وتقنية', 'ترقيات منتظمة دون توقف')">
+                    <div class="work-card-media" onclick="openLightbox('assets/card4_mutabaat_tahdeethat.jpg', 'جدول متابعة التحديثات التقنية', 'أداة تشغيلية لمراقبة التحديثات الدورية للأنظمة والبرمجيات وضمان الأداء الأمثل للأجهزة والشاشات.', 'أنظمة وتقنية', 'ترقيات منتظمة دون توقف', 'card4')">
                         <span class="work-card-badge">أنظمة برمجية</span>
-                        <img src="assets/card4_mutabaat_tahdeethat.jpg" alt="جدول متابعة التحديثات التقنية" class="work-card-img">
+                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card4')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
+                        <img src="assets/card4_mutabaat_tahdeethat.jpg" alt="جدول متابعة التحديثات التقنية" class="work-card-img" data-img-key="card4">
                     </div>
                     <div class="work-card-body">
                         <div>
@@ -1968,7 +2191,7 @@
                         </div>
                         <div class="work-card-footer">
                             <span class="work-card-category">أنظمة وتقنية</span>
-                            <button class="btn-view-work" onclick="openLightbox('assets/card4_mutabaat_tahdeethat.jpg', 'جدول متابعة التحديثات التقنية', 'أداة تشغيلية لمراقبة التحديثات الدورية للأنظمة والبرمجيات وضمان الأداء الأمثل للأجهزة والشاشات.', 'أنظمة وتقنية', 'ترقيات منتظمة دون توقف')">
+                            <button class="btn-view-work" onclick="openLightbox('assets/card4_mutabaat_tahdeethat.jpg', 'جدول متابعة التحديثات التقنية', 'أداة تشغيلية لمراقبة التحديثات الدورية للأنظمة والبرمجيات وضمان الأداء الأمثل للأجهزة والشاشات.', 'أنظمة وتقنية', 'ترقيات منتظمة دون توقف', 'card4')">
                                 معاينة المخرج ←
                             </button>
                         </div>
@@ -1977,9 +2200,13 @@
 
                 <!-- Card 5: هوية وتصاميم أسبوع الخط العربي -->
                 <div class="work-card" data-category="design" data-title="هوية وتصاميم أسبوع الخط العربي">
-                    <div class="work-card-media" onclick="openLightbox('assets/card5_usboo_khatt.jpg', 'هوية وتصاميم أسبوع الخط العربي', 'ابتكار مواد بصرية وحملة إعلانية متكاملة لفعالية أسبوع الخط العربي، تبرز جماليات الحرف وأصالته.', 'تصاميم وهوية', 'تغطية إعلامية وتفاعل واسع')">
+                    <div class="work-card-media" onclick="openLightbox('assets/card5_usboo_khatt.jpg', 'هوية وتصاميم أسبوع الخط العربي', 'ابتكار مواد بصرية وحملة إعلانية متكاملة لفعالية أسبوع الخط العربي، تبرز جماليات الحرف وأصالته.', 'تصاميم وهوية', 'تغطية إعلامية وتفاعل واسع', 'card5')">
                         <span class="work-card-badge">هوية فعاليات</span>
-                        <img src="assets/card5_usboo_khatt.jpg" alt="هوية وتصاميم أسبوع الخط العربي" class="work-card-img">
+                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card5')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
+                        <img src="assets/card5_usboo_khatt.jpg" alt="هوية وتصاميم أسبوع الخط العربي" class="work-card-img" data-img-key="card5">
                     </div>
                     <div class="work-card-body">
                         <div>
@@ -1988,7 +2215,7 @@
                         </div>
                         <div class="work-card-footer">
                             <span class="work-card-category">تصاميم وهوية</span>
-                            <button class="btn-view-work" onclick="openLightbox('assets/card5_usboo_khatt.jpg', 'هوية وتصاميم أسبوع الخط العربي', 'ابتكار مواد بصرية وحملة إعلانية متكاملة لفعالية أسبوع الخط العربي، تبرز جماليات الحرف وأصالته.', 'تصاميم وهوية', 'تغطية إعلامية وتفاعل واسع')">
+                            <button class="btn-view-work" onclick="openLightbox('assets/card5_usboo_khatt.jpg', 'هوية وتصاميم أسبوع الخط العربي', 'ابتكار مواد بصرية وحملة إعلانية متكاملة لفعالية أسبوع الخط العربي، تبرز جماليات الحرف وأصالته.', 'تصاميم وهوية', 'تغطية إعلامية وتفاعل واسع', 'card5')">
                                 معاينة المخرج ←
                             </button>
                         </div>
@@ -1997,9 +2224,13 @@
 
                 <!-- Card 6: هوية فعالية كنوز من التاريخ -->
                 <div class="work-card" data-category="design" data-title="هوية فعالية كنوز من التاريخ">
-                    <div class="work-card-media" onclick="openLightbox('assets/card6_kunooz_tareekh.jpg', 'هوية فعالية كنوز من التاريخ', 'تصميم مواد بصرية تدمج التراث بالأصالة، لتوثيق وعرض القطع التاريخية النادرة لجمهور المركز.', 'تصاميم وهوية', 'إبراز المقتنيات النادرة')">
+                    <div class="work-card-media" onclick="openLightbox('assets/card6_kunooz_tareekh.jpg', 'هوية فعالية كنوز من التاريخ', 'تصميم مواد بصرية تدمج التراث بالأصالة، لتوثيق وعرض القطع التاريخية النادرة لجمهور المركز.', 'تصاميم وهوية', 'إبراز المقتنيات النادرة', 'card6')">
                         <span class="work-card-badge">معارض تراثية</span>
-                        <img src="assets/card6_kunooz_tareekh.jpg" alt="هوية فعالية كنوز من التاريخ" class="work-card-img">
+                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card6')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
+                        <img src="assets/card6_kunooz_tareekh.jpg" alt="هوية فعالية كنوز من التاريخ" class="work-card-img" data-img-key="card6">
                     </div>
                     <div class="work-card-body">
                         <div>
@@ -2008,7 +2239,7 @@
                         </div>
                         <div class="work-card-footer">
                             <span class="work-card-category">تصاميم وهوية</span>
-                            <button class="btn-view-work" onclick="openLightbox('assets/card6_kunooz_tareekh.jpg', 'هوية فعالية كنوز من التاريخ', 'تصميم مواد بصرية تدمج التراث بالأصالة، لتوثيق وعرض القطع التاريخية النادرة لجمهور المركز.', 'تصاميم وهوية', 'إبراز المقتنيات النادرة')">
+                            <button class="btn-view-work" onclick="openLightbox('assets/card6_kunooz_tareekh.jpg', 'هوية فعالية كنوز من التاريخ', 'تصميم مواد بصرية تدمج التراث بالأصالة، لتوثيق وعرض القطع التاريخية النادرة لجمهور المركز.', 'تصاميم وهوية', 'إبراز المقتنيات النادرة', 'card6')">
                                 معاينة المخرج ←
                             </button>
                         </div>
@@ -2017,9 +2248,13 @@
 
                 <!-- Card 7: محاور السرد المتحفي والتجربة المعرفية -->
                 <div class="work-card" data-category="story" data-title="محاور السرد المتحفي والتجربة المعرفية">
-                    <div class="work-card-media" onclick="openLightbox('assets/card7_sard_mathafi.jpg', 'محاور السرد المتحفي والتجربة المعرفية', 'تطوير وتصميم محاور السرد لرحلة الزائر، بما يضمن تسلسلاً معرفياً ملهماً للخط وتطوره التاريخي.', 'سرد وفعاليات', 'تسلسل معرفي ملهم')">
+                    <div class="work-card-media" onclick="openLightbox('assets/card7_sard_mathafi.jpg', 'محاور السرد المتحفي والتجربة المعرفية', 'تطوير وتصميم محاور السرد لرحلة الزائر، بما يضمن تسلسلاً معرفياً ملهماً للخط وتطوره التاريخي.', 'سرد وفعاليات', 'تسلسل معرفي ملهم', 'card7')">
                         <span class="work-card-badge">سرد متحفي</span>
-                        <img src="assets/card7_sard_mathafi.jpg" alt="محاور السرد المتحفي والتجربة المعرفية" class="work-card-img">
+                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card7')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
+                        <img src="assets/card7_sard_mathafi.jpg" alt="محاور السرد المتحفي والتجربة المعرفية" class="work-card-img" data-img-key="card7">
                     </div>
                     <div class="work-card-body">
                         <div>
@@ -2028,7 +2263,7 @@
                         </div>
                         <div class="work-card-footer">
                             <span class="work-card-category">سرد وفعاليات</span>
-                            <button class="btn-view-work" onclick="openLightbox('assets/card7_sard_mathafi.jpg', 'محاور السرد المتحفي والتجربة المعرفية', 'تطوير وتصميم محاور السرد لرحلة الزائر، بما يضمن تسلسلاً معرفياً ملهماً للخط وتطوره التاريخي.', 'سرد وفعاليات', 'تسلسل معرفي ملهم')">
+                            <button class="btn-view-work" onclick="openLightbox('assets/card7_sard_mathafi.jpg', 'محاور السرد المتحفي والتجربة المعرفية', 'تطوير وتصميم محاور السرد لرحلة الزائر، بما يضمن تسلسلاً معرفياً ملهماً للخط وتطوره التاريخي.', 'سرد وفعاليات', 'تسلسل معرفي ملهم', 'card7')">
                                 معاينة المخرج ←
                             </button>
                         </div>
@@ -2037,9 +2272,13 @@
 
                 <!-- Card 8: ليلة القراءة في المتحف -->
                 <div class="work-card" data-category="story" data-title="ليلة القراءة في المتحف">
-                    <div class="work-card-media" onclick="openLightbox('assets/card8_reading_night.jpg', 'ليلة القراءة في المتحف', 'تصميم المطبوعات والمواد التفاعلية لفعالية ليلة القراءة التي تجمع بين الأدب وفنون الخط العربي.', 'سرد وفعاليات', 'تكامل الأدب مع فنون الخط')">
+                    <div class="work-card-media" onclick="openLightbox('assets/card8_reading_night.jpg', 'ليلة القراءة في المتحف', 'تصميم المطبوعات والمواد التفاعلية لفعالية ليلة القراءة التي تجمع بين الأدب وفنون الخط العربي.', 'سرد وفعاليات', 'تكامل الأدب مع فنون الخط', 'card8')">
                         <span class="work-card-badge">فعاليات تفاعلية</span>
-                        <img src="assets/card8_reading_night.jpg" alt="ليلة القراءة في المتحف" class="work-card-img">
+                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card8')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
+                        <img src="assets/card8_reading_night.jpg" alt="ليلة القراءة في المتحف" class="work-card-img" data-img-key="card8">
                     </div>
                     <div class="work-card-body">
                         <div>
@@ -2048,7 +2287,7 @@
                         </div>
                         <div class="work-card-footer">
                             <span class="work-card-category">سرد وفعاليات</span>
-                            <button class="btn-view-work" onclick="openLightbox('assets/card8_reading_night.jpg', 'ليلة القراءة في المتحف', 'تصميم المطبوعات والمواد التفاعلية لفعالية ليلة القراءة التي تجمع بين الأدب وفنون الخط العربي.', 'سرد وفعاليات', 'تكامل الأدب مع فنون الخط')">
+                            <button class="btn-view-work" onclick="openLightbox('assets/card8_reading_night.jpg', 'ليلة القراءة في المتحف', 'تصميم المطبوعات والمواد التفاعلية لفعالية ليلة القراءة التي تجمع بين الأدب وفنون الخط العربي.', 'سرد وفعاليات', 'تكامل الأدب مع فنون الخط', 'card8')">
                                 معاينة المخرج ←
                             </button>
                         </div>
@@ -2057,9 +2296,13 @@
 
                 <!-- Card 9: المؤشرات والإحصائيات للزيارات -->
                 <div class="work-card" data-category="tech" data-title="المؤشرات والإحصائيات للزيارات">
-                    <div class="work-card-media" onclick="openLightbox('assets/card9_indicators_stats.jpg', 'المؤشرات والإحصائيات للزيارات', 'لوحة معلومات وتصميم بياني لتحليل أعداد الزوار وجنسياتهم وقياس التفاعل المتحفي وصناعة القرار.', 'أنظمة وتقنية', 'تحليل بيانات 579 زائر')">
+                    <div class="work-card-media" onclick="openLightbox('assets/card9_indicators_stats.jpg', 'المؤشرات والإحصائيات للزيارات', 'لوحة معلومات وتصميم بياني لتحليل أعداد الزوار وجنسياتهم وقياس التفاعل المتحفي وصناعة القرار.', 'أنظمة وتقنية', 'تحليل بيانات 579 زائر', 'card9')">
                         <span class="work-card-badge">بيانات وتحليلات</span>
-                        <img src="assets/card9_indicators_stats.jpg" alt="المؤشرات والإحصائيات للزيارات" class="work-card-img">
+                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card9')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span>تغيير الصورة</span>
+                        </button>
+                        <img src="assets/card9_indicators_stats.jpg" alt="المؤشرات والإحصائيات للزيارات" class="work-card-img" data-img-key="card9">
                     </div>
                     <div class="work-card-body">
                         <div>
@@ -2068,7 +2311,7 @@
                         </div>
                         <div class="work-card-footer">
                             <span class="work-card-category">أنظمة وتقنية</span>
-                            <button class="btn-view-work" onclick="openLightbox('assets/card9_indicators_stats.jpg', 'المؤشرات والإحصائيات للزيارات', 'لوحة معلومات وتصميم بياني لتحليل أعداد الزوار وجنسياتهم وقياس التفاعل المتحفي وصناعة القرار.', 'أنظمة وتقنية', 'تحليل بيانات 579 زائر')">
+                            <button class="btn-view-work" onclick="openLightbox('assets/card9_indicators_stats.jpg', 'المؤشرات والإحصائيات للزيارات', 'لوحة معلومات وتصميم بياني لتحليل أعداد الزوار وجنسياتهم وقياس التفاعل المتحفي وصناعة القرار.', 'أنظمة وتقنية', 'تحليل بيانات 579 زائر', 'card9')">
                                 معاينة المخرج ←
                             </button>
                         </div>
@@ -2295,7 +2538,11 @@
             <!-- Tech Highlight Showcase -->
             <div class="tech-hero-card">
                 <div class="tech-hero-media">
-                    <img src="assets/tech_visitor_screen.jpg" alt="تفاعل الزوار مع الشاشات الرقمية والأنظمة التفاعلية" class="tech-hero-img">
+                    <img src="assets/tech_visitor_screen.jpg" alt="تفاعل الزوار مع الشاشات الرقمية والأنظمة التفاعلية" class="tech-hero-img" data-img-key="tech_screen">
+                    <button type="button" class="btn-replace-img" title="استبدال صورة الشاشة التفاعلية" onclick="triggerImageReplace(event, 'tech_screen')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                        <span>تغيير الصورة</span>
+                    </button>
                 </div>
                 <div class="tech-hero-content">
                     <span style="font-size: 0.85rem; color: var(--color-gold); font-weight: 600; margin-block-end: 0.5rem;">
@@ -2427,7 +2674,7 @@
             <div class="pres-slide active" id="slide-1">
                 <div class="pres-slide-card" style="text-align: center;">
                     <div style="width: 84px; height: 84px; border-radius: 50%; border: 2px solid var(--color-gold); margin: 0 auto 1.5rem; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
-                        <img src="assets/bashayer_profile.jpg" alt="بشاير شربه" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="assets/bashayer_profile.jpg" alt="بشاير شربه" data-img-key="profile" style="width: 100%; height: 100%; object-fit: cover; object-position: 25% 80%;">
                     </div>
                     <span style="font-size: 1rem; color: var(--color-gold); font-weight: 600; text-transform: uppercase;">
                         عرض إداري شامل وموثق
@@ -2510,7 +2757,7 @@
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
                         <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; padding: 0.85rem; display: flex; flex-direction: column;">
                             <div style="height: 180px; display: flex; align-items: center; justify-content: center; background: var(--bg-media-stage); border-radius: var(--radius-sm); margin-block-end: 0.75rem; padding: 0.5rem;">
-                                <img src="assets/card1_jadwal_aatal.jpg" alt="جدول الأعطال التقنية" style="max-height: 100%; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));">
+                                <img src="assets/card1_jadwal_aatal.jpg" alt="جدول الأعطال التقنية" data-img-key="card1" style="max-height: 100%; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));">
                             </div>
                             <div style="padding-inline: 0.25rem;">
                                 <h5 style="color: var(--color-text-primary); font-size: 0.95rem; margin-block-end: 0.3rem;">جدول الأعطال التقنية</h5>
@@ -2519,7 +2766,7 @@
                         </div>
                         <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; padding: 0.85rem; display: flex; flex-direction: column;">
                             <div style="height: 180px; display: flex; align-items: center; justify-content: center; background: var(--bg-media-stage); border-radius: var(--radius-sm); margin-block-end: 0.75rem; padding: 0.5rem;">
-                                <img src="assets/card2_taqreer_nisf_sanawi.jpg" alt="التقرير النصف سنوي" style="max-height: 100%; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));">
+                                <img src="assets/card2_taqreer_nisf_sanawi.jpg" alt="التقرير النصف سنوي" data-img-key="card2" style="max-height: 100%; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));">
                             </div>
                             <div style="padding-inline: 0.25rem;">
                                 <h5 style="color: var(--color-text-primary); font-size: 0.95rem; margin-block-end: 0.3rem;">التقرير النصف سنوي</h5>
@@ -2528,7 +2775,7 @@
                         </div>
                         <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; padding: 0.85rem; display: flex; flex-direction: column;">
                             <div style="height: 180px; display: flex; align-items: center; justify-content: center; background: var(--bg-media-stage); border-radius: var(--radius-sm); margin-block-end: 0.75rem; padding: 0.5rem;">
-                                <img src="assets/card5_usboo_khatt.jpg" alt="أسبوع الخط العربي" style="max-height: 100%; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));">
+                                <img src="assets/card5_usboo_khatt.jpg" alt="أسبوع الخط العربي" data-img-key="card5" style="max-height: 100%; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));">
                             </div>
                             <div style="padding-inline: 0.25rem;">
                                 <h5 style="color: var(--color-text-primary); font-size: 0.95rem; margin-block-end: 0.3rem;">أسبوع الخط العربي</h5>
@@ -2557,7 +2804,7 @@
                             </div>
                         </div>
                         <div style="background: var(--bg-media-stage); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); padding: 0.75rem; display: flex; align-items: center; justify-content: center; min-height: 260px;">
-                            <img src="assets/card9_indicators_stats.jpg" alt="المؤشرات والتحليلات" style="max-height: 260px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.25));">
+                            <img src="assets/card9_indicators_stats.jpg" alt="المؤشرات والتحليلات" data-img-key="card9" style="max-height: 260px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.25));">
                         </div>
                     </div>
                 </div>
@@ -2583,7 +2830,7 @@
                             </div>
                         </div>
                         <div style="background: var(--bg-media-stage); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); padding: 0.75rem; display: flex; align-items: center; justify-content: center; min-height: 260px;">
-                            <img src="assets/tech_visitor_screen.jpg" alt="الشاشات التفاعلية" style="max-height: 260px; max-width: 100%; object-fit: contain; border-radius: var(--radius-sm); filter: drop-shadow(0 6px 16px rgba(0,0,0,0.25));">
+                            <img src="assets/tech_visitor_screen.jpg" alt="الشاشات التفاعلية" data-img-key="tech_screen" style="max-height: 260px; max-width: 100%; object-fit: contain; border-radius: var(--radius-sm); filter: drop-shadow(0 6px 16px rgba(0,0,0,0.25));">
                         </div>
                     </div>
                 </div>
@@ -2623,8 +2870,12 @@
     <div class="modal-overlay" id="lightboxModal" onclick="closeLightbox(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close-btn" onclick="closeLightbox(null)">✕</button>
-            <div class="modal-media">
+            <div class="modal-media" style="position: relative;">
                 <img id="modalImg" src="" alt="">
+                <button type="button" class="btn-replace-img-modal" id="modalReplaceBtn" onclick="triggerImageReplace(event, currentActiveModalKey)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    <span>استبدال هذه الصورة من جهازك</span>
+                </button>
             </div>
             <div class="modal-body">
                 <span class="modal-tag" id="modalTag">تصنيف المخرج</span>
@@ -2695,13 +2946,38 @@
             });
         }
 
-        // 2. Lightbox Modal
-        function openLightbox(src, title, desc, tag, impact) {
-            document.getElementById('modalImg').src = src;
+        // ==========================================================================
+        // 2. LIGHTBOX & INTERACTIVE IMAGE CUSTOMIZER (METHOD #3)
+        // ==========================================================================
+        let currentTargetImgKey = null;
+        let currentActiveModalKey = null;
+        window.customImagesMap = {};
+
+        function openLightbox(src, title, desc, tag, impact, imgKey) {
+            currentActiveModalKey = imgKey || null;
+            let finalSrc = src;
+            if (imgKey && window.customImagesMap && window.customImagesMap[imgKey]) {
+                finalSrc = window.customImagesMap[imgKey];
+            } else if (imgKey) {
+                const saved = localStorage.getItem('bisho_custom_img_' + imgKey);
+                if (saved) finalSrc = saved;
+            }
+
+            document.getElementById('modalImg').src = finalSrc;
+            if (imgKey) {
+                document.getElementById('modalImg').setAttribute('data-img-key', imgKey);
+            } else {
+                document.getElementById('modalImg').removeAttribute('data-img-key');
+            }
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalDesc').textContent = desc;
             document.getElementById('modalTag').textContent = tag;
             document.getElementById('modalImpact').textContent = impact || 'معتمد في العمليات اليومية';
+
+            const modalReplaceBtn = document.getElementById('modalReplaceBtn');
+            if (modalReplaceBtn) {
+                modalReplaceBtn.style.display = imgKey ? 'inline-flex' : 'none';
+            }
             
             const modal = document.getElementById('lightboxModal');
             modal.classList.add('active');
@@ -2713,6 +2989,177 @@
             const modal = document.getElementById('lightboxModal');
             modal.classList.remove('active');
             document.body.style.overflow = '';
+        }
+
+        // Image Customizer Controllers
+        function triggerImageReplace(event, imgKey) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            currentTargetImgKey = imgKey;
+            const fileInput = document.getElementById('globalImgUploader');
+            if (fileInput) {
+                fileInput.value = '';
+                fileInput.click();
+            }
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file || !currentTargetImgKey) return;
+
+            if (!file.type.startsWith('image/')) {
+                showToast('يرجى اختيار ملف صورة صالح (JPG, PNG, WebP)');
+                return;
+            }
+
+            showToast('جاري تحسين وحفظ الصورة...');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const rawDataUrl = e.target.result;
+                compressImage(rawDataUrl, 1600, 0.88, function(optimizedDataUrl) {
+                    try {
+                        localStorage.setItem('bisho_custom_img_' + currentTargetImgKey, optimizedDataUrl);
+                    } catch (err) {
+                        console.warn('LocalStorage quota limit reached:', err);
+                    }
+                    window.customImagesMap[currentTargetImgKey] = optimizedDataUrl;
+                    applyImageToDOM(currentTargetImgKey, optimizedDataUrl);
+                    updateCustomizerStatus();
+                    showToast('✓ تم استبدال الصورة وحفظها بنجاح');
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function compressImage(dataUrl, maxDimension, quality, callback) {
+            const img = new Image();
+            img.onload = function() {
+                let width = img.width;
+                let height = img.height;
+
+                if (width > maxDimension || height > maxDimension) {
+                    if (width > height) {
+                        height = Math.round((height * maxDimension) / width);
+                        width = maxDimension;
+                    } else {
+                        width = Math.round((width * maxDimension) / height);
+                        height = maxDimension;
+                    }
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                const result = canvas.toDataURL('image/jpeg', quality);
+                callback(result);
+            };
+            img.src = dataUrl;
+        }
+
+        function applyImageToDOM(key, dataUrl) {
+            const images = document.querySelectorAll(`img[data-img-key="${key}"]`);
+            images.forEach(img => {
+                img.src = dataUrl;
+            });
+            const modalImg = document.getElementById('modalImg');
+            if (modalImg && modalImg.getAttribute('data-img-key') === key) {
+                modalImg.src = dataUrl;
+            }
+        }
+
+        function loadAllCustomImages() {
+            window.customImagesMap = {};
+            let count = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                const k = localStorage.key(i);
+                if (k && k.startsWith('bisho_custom_img_')) {
+                    const imgKey = k.replace('bisho_custom_img_', '');
+                    const dataUrl = localStorage.getItem(k);
+                    if (dataUrl) {
+                        window.customImagesMap[imgKey] = dataUrl;
+                        applyImageToDOM(imgKey, dataUrl);
+                        count++;
+                    }
+                }
+            }
+            updateCustomizerStatus(count);
+        }
+
+        function resetAllCustomImages() {
+            if (!confirm('هل ترغب حقاً في استعادة الصور الأصلية الافتراضية للموقع؟')) return;
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const k = localStorage.key(i);
+                if (k && k.startsWith('bisho_custom_img_')) {
+                    keysToRemove.push(k);
+                }
+            }
+            keysToRemove.forEach(k => localStorage.removeItem(k));
+            window.location.reload();
+        }
+
+        function updateCustomizerStatus(customCount) {
+            if (customCount === undefined) {
+                let c = 0;
+                for (let i = 0; i < localStorage.length; i++) {
+                    const k = localStorage.key(i);
+                    if (k && k.startsWith('bisho_custom_img_')) c++;
+                }
+                customCount = c;
+            }
+            const textEl = document.getElementById('customizerStatusText');
+            const resetBtn = document.getElementById('btnResetImages');
+            if (!textEl) return;
+
+            if (customCount > 0) {
+                textEl.textContent = `تم تخصيص واستبدال ${customCount} صورة بنجاح (محفوظة محلياً)`;
+                textEl.style.color = 'var(--color-gold-bright)';
+                if (resetBtn) resetBtn.style.display = 'inline-flex';
+            } else {
+                textEl.textContent = 'الصور الافتراضية نشطة (انقر على «📷 تغيير الصورة» بأي بطاقة لاستبدالها مباشرة)';
+                textEl.style.color = 'var(--color-text-muted)';
+                if (resetBtn) resetBtn.style.display = 'none';
+            }
+        }
+
+        function exportCustomizedPage() {
+            showToast('جاري تصدير نسخة الموقع المحدثة...');
+            // Clone document HTML
+            const docClone = document.documentElement.cloneNode(true);
+            
+            // Clean up any active state or lightboxes in the clone
+            const lightbox = docClone.querySelector('#lightboxModal');
+            if (lightbox) lightbox.classList.remove('active');
+            const overlay = docClone.querySelector('#presentationOverlay');
+            if (overlay) overlay.classList.remove('active');
+
+            const htmlContent = '<!DOCTYPE html>\n' + docClone.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'ملف_إنجازات_بشاير_شربه_محدث.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+            showToast('✓ تم تنزيل ملف الصفحة بنجاح');
+        }
+
+        let toastTimeout = null;
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            if (!toast) return;
+            toast.textContent = message;
+            toast.classList.add('active');
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3200);
         }
 
         // 3. Presentation Deck Mode (Fullscreen Board Presentation)
@@ -2783,13 +3230,18 @@
             localStorage.setItem('theme_preference', newTheme);
         }
 
-        // Initialize Theme from localStorage
-        (function initTheme() {
-            const saved = localStorage.getItem('theme_preference');
-            if (saved) {
-                document.documentElement.setAttribute('data-theme', saved);
+        // Initialize Theme & Custom Images from localStorage
+        (function initApp() {
+            const savedTheme = localStorage.getItem('theme_preference');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
             }
+            loadAllCustomImages();
         })();
     </script>
+
+    <!-- Hidden File Input for Direct In-Browser Image Replacement -->
+    <input type="file" id="globalImgUploader" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+    <div id="toastNotification" class="toast-notification"></div>
 </body>
 </html>

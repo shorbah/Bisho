@@ -1,0 +1,7 @@
+# Workspace & draft notes
+*.code-workspace
+*.md
+
+# Mockups & test assets
+mockups_showcase.html
+assets/*test*
