@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معاينة الهويات الفاتحة (Light Mode) | مركز الأمير محمد بن سلمان للخط العربي</title>
+    
+    <!-- Professional Arabic Typography from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           CORE DESIGN SYSTEM & RESET (100% LIGHT-THEMED & RTL-FIRST)
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --font-main: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Amiri', serif;
+            --font-display: 'Cairo', sans-serif;
+            --font-modern: 'Alexandria', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #F6F4EE; /* Warm Parchment Base */
+            color: #1E293B;
+            direction: rtl;
+            text-align: start;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ==========================================================================
+           TOP CONTROLLER BAR (LIGHT-MODE STICKY HEADER)
+           ========================================================================== */
+        .top-switcher-bar {
+            position: sticky;
+            inset-block-start: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(16px);
+            border-block-end: 1px solid #E2E8F0;
+            padding-block: 0.85rem;
+            padding-inline: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .bar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .bar-brand .emblem {
+            inline-size: 40px;
+            block-size: 40px;
+            border-radius: 10px;
+            background: #1E3A8A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #FFFFFF;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(30, 58, 138, 0.2);
+        }
+
+        .bar-brand .titles h1 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0F172A;
+            letter-spacing: -0.01em;
+        }
+
+        .bar-brand .titles p {
+            font-size: 0.75rem;
+            color: #64748B;
+        }
+
+        .model-nav-tabs {
+            display: flex;
+            align-items: center;
+            background: #F1F5F9;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            gap: 4px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #475569;
+            padding-block: 0.55rem;
+            padding-inline: 1.1rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tab-btn:hover {
+            color: #0F172A;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .tab-btn.active {
+            background: #FFFFFF;
+            color: #0F172A;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            font-weight: 700;
+        }
+
+        .overview-toggle-btn {
+            background: #FAF5EA;
+            border: 1px solid #D97706;
+            color: #B45309;
+            padding-block: 0.55rem;
+            padding-inline: 1.1rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+
+        .overview-toggle-btn:hover {
+            background: #D97706;
+            color: #FFFFFF;
+        }
+
+        /* ==========================================================================
+           STAGE CONTAINER & MOCKUP FRAMES
+           ========================================================================== */
+        .stage-container {
+            max-inline-size: 1360px;
+            margin-inline: auto;
+            padding-inline: 1.5rem;
+            padding-block: 2.5rem 6rem;
+        }
+
+        .mockup-frame {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.05);
+            margin-block-end: 3rem;
+            border: 1px solid #E2E8F0;
+            background: #FFFFFF;
+        }
+
+        .mockup-frame.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Top specification strip for each mockup */
+        .mockup-spec-header {
+            padding: 1.5rem 2.25rem;
+            background: #FFFFFF;
+            border-block-end: 1px solid #E2E8F0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .spec-info h2 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #0F172A;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .spec-info p {
+            font-size: 0.88rem;
+            color: #64748B;
+            margin-block-start: 0.25rem;
+            max-inline-size: 720px;
+        }
+
+        .palette-chips {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #F8FAFC;
+            padding: 0.45rem 0.85rem;
+            border-radius: 10px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .palette-chips span {
+            font-size: 0.75rem;
+            color: #475569;
+            font-weight: 600;
+            margin-inline-end: 0.35rem;
+        }
+
+        .chip {
+            inline-size: 24px;
+            block-size: 24px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* ==========================================================================
+           MOCKUP 1: BLUE PROFESSIONAL (مستوحى من Blue Professional في المستودع)
+           Aesthetic: Cream paper canvas with electric cobalt blue accents
+           ========================================================================== */
+        .m1-canvas {
+            background-color: #FAF8F2;
+            color: #111827;
+            font-family: var(--font-main);
+            padding-block: 4.5rem;
+            padding-inline: 3.5rem;
+            position: relative;
+        }
+
+        .m1-top-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
+            padding: 0.35rem 0.9rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-block-end: 1.25rem;
+        }
+
+        .m1-hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3.5rem;
+            align-items: center;
+            margin-block-end: 4rem;
+        }
+
+        .m1-title {
+            font-size: 2.85rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #0F172A;
+            letter-spacing: -0.02em;
+            margin-block-end: 1.25rem;
+        }
+
+        .m1-title mark {
+            background: transparent;
+            color: #1D4ED8;
+            font-weight: 900;
+        }
+
+        .m1-desc {
+            font-size: 1.05rem;
+            color: #4B5563;
+            line-height: 1.75;
+            margin-block-end: 2rem;
+            max-inline-size: 580px;
+        }
+
+        .m1-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .m1-btn-cobalt {
+            background: #1D4ED8;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);
+            transition: var(--transition-smooth);
+        }
+
+        .m1-btn-cobalt:hover {
+            background: #1E40AF;
+            transform: translateY(-2px);
+        }
+
+        .m1-btn-outline {
+            background: #FFFFFF;
+            color: #0F172A;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            border: 1px solid #CBD5E1;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .m1-btn-outline:hover {
+            border-color: #1D4ED8;
+            color: #1D4ED8;
+        }
+
+        .m1-card-profile {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 2.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border-block-start: 4px solid #1D4ED8;
+        }
+
+        .m1-stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+        }
+
+        .m1-stat-item {
+            text-align: center;
+            border-inline-end: 1px solid #E2E8F0;
+        }
+
+        .m1-stat-item:last-child {
+            border-inline-end: none;
+        }
+
+        .m1-stat-val {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1D4ED8;
+            line-height: 1;
+            margin-block-end: 0.25rem;
+        }
+
+        .m1-stat-label {
+            font-size: 0.85rem;
+            color: #64748B;
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           MOCKUP 2: SOFT EDITORIAL & GALLERY (مستوحى من Soft Editorial في المستودع)
+           Aesthetic: Warm paper with sage green, ivory, and Cormorant/Amiri serif
+           ========================================================================== */
+        .m2-canvas {
+            background-color: #F7F5EF;
+            color: #27272A;
+            font-family: var(--font-serif);
+            padding-block: 4.5rem;
+            padding-inline: 3.5rem;
+        }
+
+        .m2-header-meta {
+            font-family: var(--font-main);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #3B5A4E;
+            text-transform: uppercase;
+            margin-block-end: 0.75rem;
+        }
+
+        .m2-title {
+            font-size: 3.4rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: #1C2321;
+            margin-block-end: 1.5rem;
+        }
+
+        .m2-title em {
+            font-style: normal;
+            color: #2D5A46;
+        }
+
+        .m2-lead {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            color: #52525B;
+            line-height: 1.8;
+            max-inline-size: 650px;
+            margin-block-end: 2.5rem;
+        }
+
+        .m2-exhibition-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+            margin-block-start: 2rem;
+        }
+
+        .m2-paper-card {
+            background: #FFFFFF;
+            border: 1px solid #E4E0D5;
+            border-radius: 8px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            position: relative;
+        }
+
+        .m2-card-num {
+            font-family: var(--font-main);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #2D5A46;
+            margin-block-end: 0.5rem;
+        }
+
+        .m2-paper-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1C2321;
+            margin-block-end: 0.5rem;
+        }
+
+        .m2-paper-card p {
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            color: #52525B;
+            line-height: 1.6;
+        }
+
+        .m2-btn {
+            background: #2D5A46;
+            color: #FAF5EF;
+            font-family: var(--font-main);
+            font-weight: 600;
+            padding: 0.85rem 1.85rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .m2-btn:hover {
+            background: #1C2321;
+        }
+
+        /* ==========================================================================
+           MOCKUP 3: BIENNALE YELLOW & INDIGO (مستوحى من Biennale Yellow في المستودع)
+           Aesthetic: Solar warm parchment with deep indigo serif and sunny glow
+           ========================================================================== */
+        .m3-canvas {
+            background-color: #FAF7EE;
+            color: #1E1B4B;
+            font-family: var(--font-main);
+            padding-block: 4.5rem;
+            padding-inline: 3.5rem;
+            position: relative;
+            border-block-start: 6px solid #D97706;
+        }
+
+        .m3-tagline {
+            display: inline-block;
+            background: #FEF3C7;
+            color: #92400E;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 4px;
+            margin-block-end: 1.25rem;
+        }
+
+        .m3-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #1E1B4B;
+            margin-block-end: 1.25rem;
+        }
+
+        .m3-title span {
+            color: #D97706;
+            text-decoration: underline;
+            text-decoration-color: #FDE68A;
+            text-underline-offset: 8px;
+        }
+
+        .m3-split {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin-block: 2.5rem;
+        }
+
+        .m3-box-accent {
+            background: #FFFFFF;
+            border: 2px solid #FDE68A;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.06);
+        }
+
+        .m3-btn-solar {
+            background: #D97706;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 0.85rem 2rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.25);
+            transition: var(--transition-smooth);
+        }
+
+        .m3-btn-solar:hover {
+            background: #B45309;
+        }
+
+        /* ==========================================================================
+           MOCKUP 4: STENCIL & TABLET HERITAGE (مستوحى من Stencil & Tablet في المستودع)
+           Aesthetic: Bone paper with dark iron-stone and terracotta earth palette
+           ========================================================================== */
+        .m4-canvas {
+            background-color: #F3EFE6;
+            color: #292524;
+            font-family: var(--font-display);
+            padding-block: 4.5rem;
+            padding-inline: 3.5rem;
+            border-inline-start: 8px solid #A85537;
+        }
+
+        .m4-eyebrow {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #A85537;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-block-end: 0.5rem;
+        }
+
+        .m4-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: #1C1917;
+            margin-block-end: 1.25rem;
+        }
+
+        .m4-tablet-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-block-start: 3rem;
+        }
+
+        .m4-tablet-cell {
+            background: #FAF8F5;
+            border: 1px solid #D6CEBE;
+            padding: 1.5rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .m4-tablet-num {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #A85537;
+            line-height: 1;
+            margin-block-end: 0.35rem;
+        }
+
+        .m4-tablet-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #57534E;
+        }
+
+        .m4-btn {
+            background: #1C1917;
+            color: #F3EFE6;
+            font-weight: 700;
+            padding: 0.85rem 1.85rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .m4-btn:hover {
+            background: #A85537;
+        }
+
+        /* ==========================================================================
+           MOCKUP 5: MODERN CULTURAL CAPSULE (مستوحى من Capsule & Long Table)
+           Aesthetic: Milk cream with warm graphite, pill-shaped cards & terracotta pop
+           ========================================================================== */
+        .m5-canvas {
+            background-color: #FAF9F6;
+            color: #18181B;
+            font-family: var(--font-modern);
+            padding-block: 4.5rem;
+            padding-inline: 3.5rem;
+        }
+
+        .m5-capsule-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #F4F4F5;
+            color: #71717A;
+            border: 1px solid #E4E4E7;
+            padding: 0.4rem 1.2rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-block-end: 1.25rem;
+        }
+
+        .m5-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1.25;
+            color: #18181B;
+            margin-block-end: 1rem;
+        }
+
+        .m5-title span {
+            color: #EA580C;
+        }
+
+        .m5-capsule-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-block: 2.5rem;
+        }
+
+        .m5-pill-card {
+            background: #FFFFFF;
+            border: 1px solid #E4E4E7;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: var(--transition-smooth);
+        }
+
+        .m5-pill-card:hover {
+            transform: translateY(-3px);
+            border-color: #EA580C;
+        }
+
+        .m5-pill-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #18181B;
+            margin-block-end: 0.5rem;
+        }
+
+        .m5-pill-card p {
+            font-size: 0.85rem;
+            color: #71717A;
+            line-height: 1.6;
+        }
+
+        .m5-btn {
+            background: #18181B;
+            color: #FFFFFF;
+            font-weight: 700;
+            padding: 0.85rem 2rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .m5-btn:hover {
+            background: #EA580C;
+        }
+
+        /* ==========================================================================
+           OVERVIEW MATRIX TABLE (LIGHT MODE COMPARISON)
+           ========================================================================== */
+        .overview-matrix {
+            display: none;
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid #E2E8F0;
+            margin-block-end: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .overview-matrix.active {
+            display: block;
+        }
+
+        .matrix-table {
+            inline-size: 100%;
+            border-collapse: collapse;
+            text-align: start;
+        }
+
+        .matrix-table th {
+            padding: 1.1rem;
+            background: #F8FAFC;
+            color: #0F172A;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-block-end: 2px solid #E2E8F0;
+        }
+
+        .matrix-table td {
+            padding: 1.1rem;
+            border-block-end: 1px solid #F1F5F9;
+            color: #475569;
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        .matrix-table tr:hover td {
+            background: #FAF8F2;
+        }
+
+        .matrix-btn-select {
+            background: #F1F5F9;
+            color: #0F172A;
+            border: 1px solid #CBD5E1;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+        }
+
+        .matrix-btn-select:hover {
+            background: #1D4ED8;
+            color: #FFFFFF;
+            border-color: #1D4ED8;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .m1-hero-grid, .m2-exhibition-strip, .m3-split, .m4-tablet-grid, .m5-capsule-cards {
+                grid-template-columns: 1fr;
+            }
+            .m1-stats-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .m1-stat-item {
+                border-inline-end: none;
+                border-block-end: 1px solid #E2E8F0;
+                padding-block-end: 0.75rem;
+            }
+            .m1-title, .m2-title, .m3-title, .m4-title, .m5-title {
+                font-size: 2.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+         TOP CONTROLLER / SELECTOR BAR
+         ========================================================================== -->
+    <header class="top-switcher-bar">
+        <div class="bar-brand">
+            <div class="emblem">ب</div>
+            <div class="titles">
+                <h1>مختبر الهويات الفاتحة (Light Mode) | نماذج الـ Mockup الخمسة</h1>
+                <p>مستوحاة من مستودع beautiful-html-templates لمركز الأمير محمد بن سلمان للخط العربي</p>
+            </div>
+        </div>
+
+        <nav class="model-nav-tabs">
+            <button class="tab-btn active" onclick="switchMockup(1, this)">
+                <span>📘</span> 1. المهني المعاصر
+            </button>
+            <button class="tab-btn" onclick="switchMockup(2, this)">
+                <span>🌿</span> 2. التحريري المتحفي
+            </button>
+            <button class="tab-btn" onclick="switchMockup(3, this)">
+                <span>☀️</span> 3. بينالي الثقافة
+            </button>
+            <button class="tab-btn" onclick="switchMockup(4, this)">
+                <span>🏛️</span> 4. اللوحي التوثيقي
+            </button>
+            <button class="tab-btn" onclick="switchMockup(5, this)">
+                <span>💊</span> 5. الكبسولي التفاعلي
+            </button>
+        </nav>
+
+        <button class="overview-toggle-btn" onclick="toggleOverview()">
+            📊 جدول المقارنة الفنية
+        </button>
+    </header>
+
+    <main class="stage-container">
+
+        <!-- ==========================================================================
+             OVERVIEW MATRIX TABLE (COMPARISON VIEW)
+             ========================================================================== -->
+        <section id="overview-matrix-view" class="overview-matrix">
+            <h3 style="font-size: 1.35rem; margin-block-end: 0.35rem; color: #0F172A;">📊 مصفوفة المقارنة الفنية لنماذج الهوية الفاتحة (Light Mode)</h3>
+            <p style="color: #64748B; font-size: 0.9rem; margin-block-end: 1.5rem;">جميع النماذج مبنية على خلفيات ورقية ناصعة ومريحة بدون أي عناصر داكنة، ومستوحاة من أفضل قوالب مستودع beautiful-html-templates:</p>
+
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>النموذج</th>
+                        <th>القالب الملهم في المستودع</th>
+                        <th>لوحة الألوان المعتمدة (Light)</th>
+                        <th>الخطوط والتكوين</th>
+                        <th>الانطباع المؤسسي</th>
+                        <th>معاينة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. المهني المعاصر</strong></td>
+                        <td>Blue Professional</td>
+                        <td>ورق عاجي (#FAF8F2) + كحلي كوبالت (#1D4ED8) + أزرق سماوي (#EFF6FF)</td>
+                        <td>IBM Plex Sans Arabic (Bold / Regular)</td>
+                        <td>وقار حكومي ناصع، وضوح تنفيذي، ثقة مؤسسية عالية</td>
+                        <td><button class="matrix-btn-select" onclick="switchMockup(1)">عرض النموذج</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. التحريري المتحفي الهادئ</strong></td>
+                        <td>Soft Editorial & Cartesian</td>
+                        <td>ورق دافئ (#F7F5EF) + ميرمية عشبية (#2D5A46) + حبر أسود (#1C2321)</td>
+                        <td>Amiri (نسخي أدبي) + IBM Plex</td>
+                        <td>أصالة المخطوطات والكتالوجات المتحفية والمعارض العريقة</td>
+                        <td><button class="matrix-btn-select" onclick="switchMockup(2)">عرض النموذج</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. بينالي الثقافة والفنون</strong></td>
+                        <td>Biennale Yellow</td>
+                        <td>ورق الرق الشمسي (#FAF7EE) + كهرمان ذهبي (#D97706) + نيلي (#1E1B4B)</td>
+                        <td>IBM Plex Sans + لمسات صفراء مشمسة</td>
+                        <td>مهرجانات ثقافية دولية، تدشين مواسم العرض المتحفي الكبير</td>
+                        <td><button class="matrix-btn-select" onclick="switchMockup(3)">عرض النموذج</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. اللوحي التوثيقي والتراثي</strong></td>
+                        <td>Stencil & Tablet Heritage</td>
+                        <td>ورق عظمي أثري (#F3EFE6) + ترابي طيني (#A85537) + حجر كربوني (#1C1917)</td>
+                        <td>Cairo (هندسي صارم)</td>
+                        <td>أرشفة، لوحات إرشادية مكانية، توثيق تاريخي وحرفي متين</td>
+                        <td><button class="matrix-btn-select" onclick="switchMockup(4)">عرض النموذج</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. الكبسولي التفاعلي المعاصر</strong></td>
+                        <td>Capsule & Long Table</td>
+                        <td>كريمي حليبي (#FAF9F6) + رصاصي دافئ (#18181B) + برتقالي قرميدي (#EA580C)</td>
+                        <td>Alexandria (عصري للشاشات)</td>
+                        <td>حداثة، مسارات تفاعلية، بطاقات كبسولية ناعمة وسلسة</td>
+                        <td><button class="matrix-btn-select" onclick="switchMockup(5)">عرض النموذج</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ==========================================================================
+             MOCKUP 1: BLUE PROFESSIONAL (BLUE & LUXE CREAM)
+             ========================================================================== -->
+        <article id="mockup-1" class="mockup-frame active">
+            <div class="mockup-spec-header">
+                <div class="spec-info">
+                    <h2>📘 النموذج 1: المهني المعاصر (Blue Professional)</h2>
+                    <p>مستوحى من قالب Blue Professional الشهير في المستودع. يعتمد على خلفية الورق العاجي النقي مع أزرق كوبالت ناصع، وهو الأقوى للمؤسسات والهيئات الحكومية.</p>
+                </div>
+                <div class="palette-chips">
+                    <span>لوحة الألوان:</span>
+                    <div class="chip" style="background: #FAF8F2;" title="ورق عاجي #FAF8F2"></div>
+                    <div class="chip" style="background: #1D4ED8;" title="أزرق كوبالت #1D4ED8"></div>
+                    <div class="chip" style="background: #0F172A;" title="حبر كحلي #0F172A"></div>
+                    <div class="chip" style="background: #EFF6FF;" title="سماوي ناصع #EFF6FF"></div>
+                </div>
+            </div>
+
+            <div class="m1-canvas">
+                <div class="m1-hero-grid">
+                    <div>
+                        <div class="m1-top-badge">مركز الأمير محمد بن سلمان للخط العربي · 2026</div>
+                        <h1 class="m1-title">أصنع التجارب، وأحوّل الأفكار إلى <mark>أثر ملموس.</mark></h1>
+                        <p class="m1-desc">
+                            أخصائي إثراء تجربة وتطوير متحفي، أعمل على صياغة الحلول البصرية والتقنية التي تربط بين أصالة الخط العربي وعصرية التجربة المتحفية، للإسهام في تحقيق مستهدفات رؤية السعودية 2030.
+                        </p>
+                        <div class="m1-actions">
+                            <button class="m1-btn-cobalt">استكشف المشاريع النوعية</button>
+                            <button class="m1-btn-outline">البيان التنفيذي والتوثيق</button>
+                        </div>
+                    </div>
+
+                    <div class="m1-card-profile">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #1D4ED8; margin-block-end: 0.5rem;">ملف الإنجاز السنوي المعتمد</div>
+                        <h3 style="font-size: 1.35rem; color: #0F172A; margin-block-end: 0.5rem;">الأستاذة بشاير شربه</h3>
+                        <p style="font-size: 0.9rem; color: #64748B; margin-block-end: 1.25rem;">أخصائي إثراء تجربة وتصميم محتوى وتطوير متحفي</p>
+                        <div style="font-size: 0.88rem; color: #334155; line-height: 1.7; background: #F8FAFC; padding: 1rem; border-radius: 8px; border: 1px solid #E2E8F0;">
+                            «تطوير التجربة المتحفية في عاصمة الخط العربي يرتكز على المزج بين التفسير البصري المحكم وتطويع التكنولوجيا لخدمة الزائر.»
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Strip -->
+                <div class="m1-stats-row">
+                    <div class="m1-stat-item">
+                        <div class="m1-stat-val">180+</div>
+                        <div class="m1-stat-label">مخرج بصري وهوية مكانية</div>
+                    </div>
+                    <div class="m1-stat-item">
+                        <div class="m1-stat-val">96.4%</div>
+                        <div class="m1-stat-label">نسبة رضا الزوار (NPS)</div>
+                    </div>
+                    <div class="m1-stat-item">
+                        <div class="m1-stat-val">42 دقيقة</div>
+                        <div class="m1-stat-label">متوسط وقت بقاء الزائر بالقاعات (+65%)</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- ==========================================================================
+             MOCKUP 2: SOFT EDITORIAL & GALLERY
+             ========================================================================== -->
+        <article id="mockup-2" class="mockup-frame">
+            <div class="mockup-spec-header">
+                <div class="spec-info">
+                    <h2>🌿 النموذج 2: التحريري المتحفي الهادئ (Soft Editorial & Gallery)</h2>
+                    <p>مستوحى من قالب Soft Editorial في المستودع. يعتمد على خلفيات ورقية ناعمة مع لمسات الأخضر الميرمية العريق، وخطوط أدبية عريقة تعكس رقي المتاحف والمعارض التاريخية.</p>
+                </div>
+                <div class="palette-chips">
+                    <span>لوحة الألوان:</span>
+                    <div class="chip" style="background: #F7F5EF;" title="ورق دافئ #F7F5EF"></div>
+                    <div class="chip" style="background: #2D5A46;" title="أخضر ميرمية #2D5A46"></div>
+                    <div class="chip" style="background: #1C2321;" title="حبر كربوني #1C2321"></div>
+                    <div class="chip" style="background: #E4E0D5;" title="بيج ناعم #E4E0D5"></div>
+                </div>
+            </div>
+
+            <div class="m2-canvas">
+                <div class="m2-header-meta">مركز الأمير محمد بن سلمان للخط العربي · المدينة المنورة</div>
+                <h1 class="m2-title">أصنعُ التجاربَ، وأحوّلُ <em>الأفكارَ إلى أثرٍ</em> حيٍّ.</h1>
+                <p class="m2-lead">
+                    إثراء محتوى الخط العربي عبر الدمج المتكامل بين التفسير المتحفي وسرد القصة المكانية، لننقل زوار المركز من مجرد مشاهدين إلى مستكشفين يعيشون عمق الحرف العربي وأصالته.
+                </p>
+
+                <div class="m2-exhibition-strip">
+                    <div class="m2-paper-card">
+                        <div class="m2-card-num">مشروع رقم 01</div>
+                        <h3>معرض رحلة الحرف والضوء</h3>
+                        <p>تصميم سيناريو تفاعلي يدمج بين إضاءة المخطوطات الأصلية وشاشات العرض الشفافة لمحاكاة هندسة الحرف وزاوية قلم الخطاط.</p>
+                    </div>
+                    <div class="m2-paper-card">
+                        <div class="m2-card-num">مشروع رقم 02</div>
+                        <h3>نظام اللوحات التفسيرية (Wayfinding)</h3>
+                        <p>تطوير نظام لوني إرشادي مستوحى من أحبار الخط التقليدي (45 لوحة تفسيرية) تدعم تدفق الزوار وفق أعلى معايير الوصولية العالمية.</p>
+                    </div>
+                    <div class="m2-paper-card">
+                        <div class="m2-card-num">مشروع رقم 03</div>
+                        <h3>رقمنة المخطوطات وترميمها</h3>
+                        <p>معالجة اللوحات التاريخية عبر Adobe Photoshop لإبراز ألياف الورق وتفاصيل التراكيب الحبرية الدقيقة دون المساس بالأصل.</p>
+                    </div>
+                </div>
+
+                <div style="margin-block-start: 2.5rem;">
+                    <button class="m2-btn">قراءة الميثاق التفسيري الكامل</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- ==========================================================================
+             MOCKUP 3: BIENNALE YELLOW & INDIGO
+             ========================================================================== -->
+        <article id="mockup-3" class="mockup-frame">
+            <div class="mockup-spec-header">
+                <div class="spec-info">
+                    <h2>☀️ النموذج 3: بينالي الثقافة والفنون (Biennale Yellow & Indigo)</h2>
+                    <p>مستوحى من قالب Biennale Yellow في المستودع. يتميز بورق مشمس مشرق مع تباين أصفر كهرماني دافئ ونيلي عميق، يعكس طاقة المهرجانات والبيناليات الثقافية العالمية.</p>
+                </div>
+                <div class="palette-chips">
+                    <span>لوحة الألوان:</span>
+                    <div class="chip" style="background: #FAF7EE;" title="ورق شمسي #FAF7EE"></div>
+                    <div class="chip" style="background: #D97706;" title="كهرمان شمسي #D97706"></div>
+                    <div class="chip" style="background: #1E1B4B;" title="نيلي عميق #1E1B4B"></div>
+                    <div class="chip" style="background: #FEF3C7;" title="أصفر رقيق #FEF3C7"></div>
+                </div>
+            </div>
+
+            <div class="m3-canvas">
+                <span class="m3-tagline">الموسم المتحفي والتطوير 2026/2027</span>
+                <h1 class="m3-title">أصنع التجارب، وأحوّل الأفكار إلى <span>أثر ثقافي متجدد.</span></h1>
+
+                <div class="m3-split">
+                    <div>
+                        <p style="font-size: 1.1rem; color: #4338CA; line-height: 1.8; margin-block-end: 2rem;">
+                            الارتقاء برحلة الزائر في مركز الأمير محمد بن سلمان للخط العربي عبر حلول تصميمية مبتكرة تمزج بين الفنون البصرية المعاصرة والعمق المعرفي للحرف القرآني والتاريخي.
+                        </p>
+                        <button class="m3-btn-solar">استكشف خطة التطوير القادمة</button>
+                    </div>
+
+                    <div class="m3-box-accent">
+                        <div style="font-size: 0.85rem; font-weight: 700; color: #D97706; margin-block-end: 0.5rem;">مؤشرات التأثير والتميز</div>
+                        <h4 style="font-size: 1.25rem; font-weight: 800; color: #1E1B4B; margin-block-end: 1rem;">147 جولة تخصصية للوفود</h4>
+                        <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+                            إدارة وتوجيه جولات الوفود الرسمية والدبلوماسية والزوار المتخصصين بنسبة استيعاب وتفاعل بلغت 88% للمحتوى التفسيري.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- ==========================================================================
+             MOCKUP 4: STENCIL & TABLET HERITAGE
+             ========================================================================== -->
+        <article id="mockup-4" class="mockup-frame">
+            <div class="mockup-spec-header">
+                <div class="spec-info">
+                    <h2>🏛️ النموذج 4: اللوحي التوثيقي والتراثي (Stencil & Tablet Heritage)</h2>
+                    <p>مستوحى من قالب Stencil & Tablet في المستودع. يتميز بخلفية الورق العظمي الأثري والألوان الطينية التراثية التي تبرز أصالة المتاحف والآثار المعمارية.</p>
+                </div>
+                <div class="palette-chips">
+                    <span>لوحة الألوان:</span>
+                    <div class="chip" style="background: #F3EFE6;" title="ورق عظمي #F3EFE6"></div>
+                    <div class="chip" style="background: #A85537;" title="طين تراثي #A85537"></div>
+                    <div class="chip" style="background: #1C1917;" title="حجر بازلتي #1C1917"></div>
+                    <div class="chip" style="background: #D6CEBE;" title="رمل معتق #D6CEBE"></div>
+                </div>
+            </div>
+
+            <div class="m4-canvas">
+                <div class="m4-eyebrow">وثيقة الإنجازات والتطوير المتحفي // 2026</div>
+                <h1 class="m4-title">أصنع التجارب، وأحوّل الأفكار إلى أثرٍ راسخ.</h1>
+                <p style="font-size: 1.05rem; color: #57534E; line-height: 1.8; max-inline-size: 650px;">
+                    منظومة عمل متكاملة ترتكز على التوثيق البصري، الجرافيك البيئي والمكاني، وصناعة معارض احترافية تحافظ على قيمة الأثر المخطوط وتعرضه برؤية هندسية رصينة.
+                </p>
+
+                <div class="m4-tablet-grid">
+                    <div class="m4-tablet-cell">
+                        <div class="m4-tablet-num">180+</div>
+                        <div class="m4-tablet-label">تصميم ومخرج موثق</div>
+                    </div>
+                    <div class="m4-tablet-cell">
+                        <div class="m4-tablet-num">6</div>
+                        <div class="m4-tablet-label">معارض تفاعلية مطورة</div>
+                    </div>
+                    <div class="m4-tablet-cell">
+                        <div class="m4-tablet-num">45</div>
+                        <div class="m4-tablet-label">لوحة إرشادية وتفسيرية</div>
+                    </div>
+                    <div class="m4-tablet-cell">
+                        <div class="m4-tablet-num">96%</div>
+                        <div class="m4-tablet-label">مؤشر رضا الزائر</div>
+                    </div>
+                </div>
+
+                <div style="margin-block-start: 2.5rem;">
+                    <button class="m4-btn">معاينة سجل المشاريع واللوحات</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- ==========================================================================
+             MOCKUP 5: MODERN CULTURAL CAPSULE
+             ========================================================================== -->
+        <article id="mockup-5" class="mockup-frame">
+            <div class="mockup-spec-header">
+                <div class="spec-info">
+                    <h2>💊 النموذج 5: الكبسولي التفاعلي المعاصر (Modern Cultural Capsule)</h2>
+                    <p>مستوحى من قالبي Capsule و Long Table في المستودع. يعتمد على أرضية حليبية ناصعة، بطاقات كبسولية ناعمة الحواف، وألوان ترابية معاصرة مع لمسة كستنائية نابضة بالحياة.</p>
+                </div>
+                <div class="palette-chips">
+                    <span>لوحة الألوان:</span>
+                    <div class="chip" style="background: #FAF9F6;" title="كريمي حليبي #FAF9F6"></div>
+                    <div class="chip" style="background: #EA580C;" title="برتقالي قرميدي #EA580C"></div>
+                    <div class="chip" style="background: #18181B;" title="فحم ناعم #18181B"></div>
+                    <div class="chip" style="background: #E4E4E7;" title="رمادي خفيف #E4E4E7"></div>
+                </div>
+            </div>
+
+            <div class="m5-canvas">
+                <div class="m5-capsule-badge">تجربة الزائر · التصميم الإبداعي · التطوير التقني</div>
+                <h1 class="m5-title">أصنع التجارب، وأحوّل الأفكار إلى <span>أثر تفاعلي.</span></h1>
+                <p style="font-size: 1.05rem; color: #71717A; line-height: 1.7; max-inline-size: 600px;">
+                    ابتكار بيئات تعلم ومسارات استكشاف تفاعلية ذكية للزوار والأجيال الشابة تجعل الخط العربي فناً حياً وقريباً من لغة العصر.
+                </p>
+
+                <div class="m5-capsule-cards">
+                    <div class="m5-pill-card">
+                        <h4>الواجهات الرقمية (Figma)</h4>
+                        <p>تصميم واجهات لمس متحفية تفاعلية تحاكي أسلوب كتابة الخط العربي وتشريح الحروف بدقة متناهية.</p>
+                    </div>
+                    <div class="m5-pill-card">
+                        <h4>الترميم والمعالجة (Photoshop)</h4>
+                        <p>تقنيات متقدمة لمعالجة تباين المخطوطات القديمة وترميم التلف الضوئي لعرضها بدقة Ultra-Zoom.</p>
+                    </div>
+                    <div class="m5-pill-card">
+                        <h4>النشر والتفسير (InDesign)</h4>
+                        <p>إعداد الكتيبات والأدلة التفسيرية للزوار والباحثين وفق أرقى معايير النشر الطباعي والرقمي المعتمد.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="m5-btn">عرض مصفوفة المهارات والأدوات</button>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- ==========================================================================
+         INTERACTIVE JAVASCRIPT CONTROLLER
+         ========================================================================== -->
+    <script>
+        function switchMockup(id, btnElement) {
+            // Hide overview matrix if open
+            document.getElementById('overview-matrix-view').classList.remove('active');
+
+            // Hide all mockups
+            const frames = document.querySelectorAll('.mockup-frame');
+            frames.forEach(frame => frame.classList.remove('active'));
+
+            // Show selected mockup
+            const target = document.getElementById('mockup-' + id);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // Update navigation tab active state
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            if (btnElement) {
+                btnElement.classList.add('active');
+            } else {
+                const matchingTab = tabs[id - 1];
+                if (matchingTab) matchingTab.classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleOverview() {
+            const matrix = document.getElementById('overview-matrix-view');
+            const frames = document.querySelectorAll('.mockup-frame');
+            
+            if (matrix.classList.contains('active')) {
+                matrix.classList.remove('active');
+                switchMockup(1);
+            } else {
+                frames.forEach(frame => frame.classList.remove('active'));
+                matrix.classList.add('active');
+                matrix.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
