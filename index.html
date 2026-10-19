@@ -495,6 +495,42 @@
             color: var(--color-gold);
         }
 
+        /* Light Mode High-Contrast Override for Presentation Buttons */
+        [data-theme="light"] .btn-presentation {
+            background: linear-gradient(135deg, #997328 0%, #7A5B1E 100%);
+            color: #FFFFFF;
+            border: 1px solid #7A5B1E;
+            box-shadow: 0 4px 18px rgba(153, 115, 40, 0.35);
+        }
+
+        [data-theme="light"] .btn-presentation:hover {
+            background: linear-gradient(135deg, #7A5B1E 0%, #5C4314 100%);
+            box-shadow: 0 6px 24px rgba(153, 115, 40, 0.5);
+        }
+
+        [data-theme="light"] .btn-secondary {
+            background-color: #FFFFFF;
+            color: #1A1612;
+            border: 1.5px solid var(--color-gold);
+            box-shadow: 0 6px 20px rgba(70, 55, 30, 0.12);
+            font-weight: 700;
+        }
+
+        [data-theme="light"] .btn-secondary svg {
+            stroke: var(--color-gold);
+        }
+
+        [data-theme="light"] .btn-secondary:hover {
+            background-color: var(--color-gold);
+            color: #FFFFFF;
+            border-color: var(--color-gold);
+            box-shadow: 0 8px 25px rgba(153, 115, 40, 0.35);
+        }
+
+        [data-theme="light"] .btn-secondary:hover svg {
+            stroke: #FFFFFF;
+        }
+
         /* ==========================================================================
            ABOUT ME & VISION SECTION
            ========================================================================== */
@@ -778,11 +814,21 @@
             pointer-events: none;
         }
 
-        /* 3x3 Grid for 9 Works */
+        .section-block#gallery .container {
+            max-width: 1440px;
+        }
+
+        /* Portfolio Gallery Grid */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            gap: 2.25rem;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-grid.grid-large-view {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
         }
 
         .work-card {
@@ -802,32 +848,79 @@
             box-shadow: var(--shadow-card);
         }
 
+        /* Extra Large Gallery Media Stage */
         .work-card-media {
             position: relative;
-            aspect-ratio: 16 / 12;
+            min-height: 440px;
+            aspect-ratio: 16 / 15;
             background-color: var(--bg-media-stage);
             overflow: hidden;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.25rem;
+            padding: 0.85rem;
             transition: var(--transition-smooth);
+        }
+
+        .grid-large-view .work-card-media {
+            min-height: 550px;
+            aspect-ratio: 16 / 14;
+            padding: 1.15rem;
         }
 
         .work-card-img {
             max-inline-size: 100%;
             max-block-size: 100%;
             inline-size: auto;
-            block-size: auto;
+            block-size: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+            filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.32));
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
         }
 
         .work-card:hover .work-card-img {
-            transform: translateY(-4px) scale(1.03);
-            filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.38));
+            transform: translateY(-5px) scale(1.04);
+            filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.45));
+        }
+
+        /* Layout Switcher Buttons */
+        .gallery-view-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-full);
+            padding: 0.25rem;
+        }
+
+        .btn-view-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+            padding-inline: 0.85rem;
+            padding-block: 0.4rem;
+            border-radius: var(--radius-full);
+            color: var(--color-text-muted);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-view-toggle:hover {
+            color: var(--color-gold);
+        }
+
+        .btn-view-toggle.active {
+            background-color: var(--color-gold);
+            color: #030710;
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
         }
 
         .work-card-badge {
@@ -1326,15 +1419,16 @@
 
         /* 2026 Roadmap Timeline */
         .roadmap-card {
-            background: linear-gradient(145deg, var(--bg-card) 0%, rgba(18, 26, 41, 0.95) 100%);
+            background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-surface) 100%);
             border: 1px solid var(--border-card);
             border-radius: var(--radius-lg);
             padding: 2.5rem;
+            box-shadow: var(--shadow-subtle);
         }
 
         .roadmap-title {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--color-gold);
             margin-block-end: 2rem;
@@ -1350,29 +1444,83 @@
 
         .roadmap-step {
             position: relative;
-            padding-inline-start: 1rem;
-            border-inline-start: 2px solid var(--color-gold);
+            padding-inline-start: 1.15rem;
+            padding-block: 0.65rem;
+            border-inline-start: 3px solid var(--color-gold);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            transition: var(--transition-smooth);
+        }
+
+        .roadmap-step:hover {
+            transform: translateY(-2px);
         }
 
         .roadmap-quarter {
             font-size: 0.825rem;
             font-weight: 700;
-            color: var(--color-gold);
+            color: var(--color-gold-bright);
             text-transform: uppercase;
-            margin-block-end: 0.35rem;
-        }
-
-        .roadmap-step-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--color-text-primary);
             margin-block-end: 0.4rem;
         }
 
+        .roadmap-step-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-block-end: 0.5rem;
+        }
+
         .roadmap-step-desc {
-            font-size: 0.825rem;
-            color: var(--color-text-muted);
-            line-height: 1.6;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            line-height: 1.65;
+        }
+
+        /* Roadmap Light Mode Harmony (Curated Museum Palette) */
+        [data-theme="light"] .roadmap-card {
+            background: linear-gradient(145deg, #FFFFFF 0%, #F5F2EB 100%);
+            border: 1.5px solid var(--color-gold-border);
+            box-shadow: 0 14px 35px rgba(70, 55, 30, 0.07);
+        }
+
+        [data-theme="light"] .roadmap-title {
+            color: #997328;
+        }
+
+        [data-theme="light"] .roadmap-step {
+            border-inline-start: 3px solid #997328;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1.25rem 1.15rem;
+            box-shadow: 0 2px 12px rgba(70, 55, 30, 0.05);
+            border-block: 1px solid rgba(153, 115, 40, 0.15);
+            border-inline-end: 1px solid rgba(153, 115, 40, 0.15);
+        }
+
+        [data-theme="light"] .roadmap-step:hover {
+            background: #FFFFFF;
+            box-shadow: 0 6px 20px rgba(153, 115, 40, 0.15);
+            border-inline-start-color: #B88E2D;
+        }
+
+        [data-theme="light"] .roadmap-quarter {
+            color: #997328;
+            background: rgba(153, 115, 40, 0.12);
+            display: inline-block;
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+        }
+
+        [data-theme="light"] .roadmap-step-title {
+            color: #1A1612;
+            font-weight: 700;
+        }
+
+        [data-theme="light"] .roadmap-step-desc {
+            color: #4A433A;
+            line-height: 1.7;
         }
 
         /* ==========================================================================
@@ -2055,7 +2203,7 @@
                 <p class="section-desc">استعراض تفصيلي لأبرز النماذج والمخرجات الموثقة من بيئة العمل المتحفي بمركز الأمير محمد بن سلمان للخط العربي.</p>
             </div>
 
-            <!-- Filter Tabs & Live Search -->
+            <!-- Filter Tabs, Layout Toggle & Live Search -->
             <div class="gallery-controls">
                 <div class="gallery-filter-tabs">
                     <button class="filter-btn active" onclick="filterGallery('all')">الكل (9)</button>
@@ -2065,12 +2213,32 @@
                     <button class="filter-btn" onclick="filterGallery('story')">سرد وفعاليات (2)</button>
                 </div>
 
-                <div class="gallery-search-box">
-                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <input type="text" id="gallerySearch" class="gallery-search-input" placeholder="بحث فوري في المخرجات..." oninput="searchGallery(this.value)">
+                <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                    <div class="gallery-view-toggle">
+                        <button type="button" class="btn-view-toggle active" id="btnView3Col" onclick="setGalleryLayout('standard')" title="عرض قياسي (3 أعمدة)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="18"></rect>
+                                <rect x="14" y="3" width="7" height="18"></rect>
+                            </svg>
+                            <span>عرض قياسي</span>
+                        </button>
+                        <button type="button" class="btn-view-toggle" id="btnView2Col" onclick="setGalleryLayout('large')" title="عرض مكبّر (عمودين عريضين)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                            <span>عرض مكبّر عريض</span>
+                        </button>
+                    </div>
+
+                    <div class="gallery-search-box">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="gallerySearch" class="gallery-search-input" placeholder="بحث فوري في المخرجات..." oninput="searchGallery(this.value)">
+                    </div>
                 </div>
             </div>
 
@@ -2946,6 +3114,26 @@
             });
         }
 
+        // Layout Switcher: Standard (3 Columns) vs Large (2 Columns)
+        function setGalleryLayout(layout) {
+            const grid = document.getElementById('galleryGrid');
+            const btn3 = document.getElementById('btnView3Col');
+            const btn2 = document.getElementById('btnView2Col');
+            if (!grid) return;
+
+            if (layout === 'large') {
+                grid.classList.add('grid-large-view');
+                if (btn2) btn2.classList.add('active');
+                if (btn3) btn3.classList.remove('active');
+                localStorage.setItem('bisho_gallery_layout', 'large');
+            } else {
+                grid.classList.remove('grid-large-view');
+                if (btn3) btn3.classList.add('active');
+                if (btn2) btn2.classList.remove('active');
+                localStorage.setItem('bisho_gallery_layout', 'standard');
+            }
+        }
+
         // ==========================================================================
         // 2. LIGHTBOX & INTERACTIVE IMAGE CUSTOMIZER (METHOD #3)
         // ==========================================================================
@@ -3230,11 +3418,15 @@
             localStorage.setItem('theme_preference', newTheme);
         }
 
-        // Initialize Theme & Custom Images from localStorage
+        // Initialize Theme, Custom Images & Layout from localStorage
         (function initApp() {
             const savedTheme = localStorage.getItem('theme_preference');
             if (savedTheme) {
                 document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+            const savedLayout = localStorage.getItem('bisho_gallery_layout');
+            if (savedLayout) {
+                setGalleryLayout(savedLayout);
             }
             loadAllCustomImages();
         })();
