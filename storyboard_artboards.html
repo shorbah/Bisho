@@ -939,42 +939,50 @@
             z-index: 2;
         }
 
-        /* In-Browser Interactive Image Replacer UI (Method #3) */
+        /* In-Browser Interactive Image Replacer UI (Method #3) - Discreet Corner Pencil */
         .btn-replace-img {
             position: absolute;
-            inset-inline-end: 0.85rem;
-            inset-block-start: 0.85rem;
-            background: var(--bg-glass);
+            inset-inline-end: 0.75rem;
+            inset-block-end: 0.75rem;
+            inline-size: 32px;
+            block-size: 32px;
+            min-inline-size: 32px;
+            min-block-size: 32px;
+            padding: 0;
+            border-radius: var(--radius-full);
+            background: rgba(3, 7, 16, 0.78);
             border: 1px solid var(--color-gold-border);
             color: var(--color-gold-bright);
-            font-family: var(--font-body);
-            font-size: 0.775rem;
-            font-weight: 600;
-            padding-inline: 0.7rem;
-            padding-block: 0.35rem;
-            border-radius: var(--radius-full);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             display: inline-flex;
             align-items: center;
-            gap: 0.35rem;
+            justify-content: center;
             cursor: pointer;
             z-index: 4;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
             transition: var(--transition-smooth);
             user-select: none;
+        }
+
+        [data-theme="light"] .btn-replace-img {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1.5px solid var(--color-gold);
+            color: #7A5B1E;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
         }
 
         .btn-replace-img:hover {
             background: var(--color-gold);
             color: #030710;
             border-color: var(--color-gold-bright);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.1);
             box-shadow: var(--shadow-gold);
         }
 
         .btn-replace-img svg {
-            inline-size: 13px;
-            block-size: 13px;
+            inline-size: 14px;
+            block-size: 14px;
             stroke: currentColor;
             flex-shrink: 0;
         }
@@ -1293,7 +1301,7 @@
 
         .nation-pill {
             padding-inline: 0.85rem;
-            padding-block: 0.4rem;
+            padding-block: 0.45rem;
             border-radius: var(--radius-full);
             background-color: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -1301,8 +1309,25 @@
             color: var(--color-text-secondary);
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.55rem;
             transition: var(--transition-smooth);
+            line-height: 1.2;
+        }
+
+        .nation-flag {
+            inline-size: 19px;
+            block-size: 14px;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+            flex-shrink: 0;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        [data-theme="light"] .nation-flag {
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+            border: 0.5px solid rgba(0, 0, 0, 0.08);
         }
 
         .nation-pill:hover {
@@ -2242,30 +2267,6 @@
                 </div>
             </div>
 
-            <!-- In-Browser Image Customization & Persistence Toolbar (Method #3) -->
-            <div class="gallery-customizer-toolbar">
-                <div class="customizer-status" id="customizerStatus">
-                    <span class="customizer-dot"></span>
-                    <span id="customizerStatusText">الصور الافتراضية نشطة (انقر على «📷 تغيير الصورة» بأي بطاقة لاستبدالها مباشرة)</span>
-                </div>
-                <div class="customizer-actions">
-                    <button type="button" class="btn-customizer" onclick="resetAllCustomImages()" id="btnResetImages" style="display: none;" title="استعادة كافة الصور الافتراضية">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-                            <path d="M3 3v5h5"></path>
-                        </svg>
-                        استعادة الصور الأصلية
-                    </button>
-                    <button type="button" class="btn-customizer btn-customizer-export" onclick="exportCustomizedPage()" title="تنزيل نسخة مستقلة من الموقع بالصور الجديدة">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        تحميل نسخة بالصور الجديدة
-                    </button>
-                </div>
-            </div>
 
             <!-- 9 Cards Grid -->
             <div class="gallery-grid" id="galleryGrid">
@@ -2274,9 +2275,8 @@
                 <div class="work-card" data-category="tech" data-title="جدول الأعطال والمشكلات التقنية">
                     <div class="work-card-media" onclick="openLightbox('assets/card1_jadwal_aatal.jpg', 'جدول الأعطال والمشكلات التقنية', 'نظام شامل لمتابعة وحصر البلاغات التقنية لضمان جاهزية المعروضات والشاشات التفاعلية باستمرار.', 'أنظمة وتقنية', 'جاهزية العرض اليومي بنسبة 99.4%', 'card1')">
                         <span class="work-card-badge">أنظمة وتشغيل</span>
-                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card1')">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span>تغيير الصورة</span>
+                        <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'card1')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                         <img src="assets/card1_jadwal_aatal.jpg" alt="جدول الأعطال والمشكلات التقنية" class="work-card-img" data-img-key="card1">
                     </div>
@@ -2298,9 +2298,8 @@
                 <div class="work-card" data-category="docs" data-title="التقرير النصف سنوي للمركز">
                     <div class="work-card-media" onclick="openLightbox('assets/card2_taqreer_nisf_sanawi.jpg', 'التقرير النصف سنوي للمركز', 'صياغة وتصميم التقرير النصف سنوي الشامل الذي يوثق إنجازات ومؤشرات أداء المركز أمام الإدارة العليا.', 'أدلة وتوثيق', 'توثيق 6 أشهر من الإنجاز المؤسسي', 'card2')">
                         <span class="work-card-badge">تقارير إدارية</span>
-                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card2')">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span>تغيير الصورة</span>
+                        <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'card2')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                         <img src="assets/card2_taqreer_nisf_sanawi.jpg" alt="التقرير النصف سنوي للمركز" class="work-card-img" data-img-key="card2">
                     </div>
@@ -2322,9 +2321,8 @@
                 <div class="work-card" data-category="docs" data-title="دليل تشغيل المعرض">
                     <div class="work-card-media" onclick="openLightbox('assets/card3_daleel_tashgheel.jpg', 'دليل تشغيل المعرض', 'وثيقة مرجعية متكاملة لإجراءات التشغيل اليومي، معايير استقبال الزوار، وبروتوكولات الجولات الإرشادية.', 'أدلة وتوثيق', 'حوكمة العمليات المتحفية', 'card3')">
                         <span class="work-card-badge">حوكمة وتشغيل</span>
-                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card3')">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span>تغيير الصورة</span>
+                        <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'card3')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                         <img src="assets/card3_daleel_tashgheel.jpg" alt="دليل تشغيل المعرض" class="work-card-img" data-img-key="card3">
                     </div>
@@ -2346,9 +2344,8 @@
                 <div class="work-card" data-category="tech" data-title="جدول متابعة التحديثات التقنية">
                     <div class="work-card-media" onclick="openLightbox('assets/card4_mutabaat_tahdeethat.jpg', 'جدول متابعة التحديثات التقنية', 'أداة تشغيلية لمراقبة التحديثات الدورية للأنظمة والبرمجيات وضمان الأداء الأمثل للأجهزة والشاشات.', 'أنظمة وتقنية', 'ترقيات منتظمة دون توقف', 'card4')">
                         <span class="work-card-badge">أنظمة برمجية</span>
-                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card4')">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span>تغيير الصورة</span>
+                        <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'card4')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                         <img src="assets/card4_mutabaat_tahdeethat.jpg" alt="جدول متابعة التحديثات التقنية" class="work-card-img" data-img-key="card4">
                     </div>
@@ -2370,9 +2367,8 @@
                 <div class="work-card" data-category="design" data-title="هوية وتصاميم أسبوع الخط العربي">
                     <div class="work-card-media" onclick="openLightbox('assets/card5_usboo_khatt.jpg', 'هوية وتصاميم أسبوع الخط العربي', 'ابتكار مواد بصرية وحملة إعلانية متكاملة لفعالية أسبوع الخط العربي، تبرز جماليات الحرف وأصالته.', 'تصاميم وهوية', 'تغطية إعلامية وتفاعل واسع', 'card5')">
                         <span class="work-card-badge">هوية فعاليات</span>
-                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card5')">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span>تغيير الصورة</span>
+                        <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'card5')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                         <img src="assets/card5_usboo_khatt.jpg" alt="هوية وتصاميم أسبوع الخط العربي" class="work-card-img" data-img-key="card5">
                     </div>
@@ -2394,9 +2390,8 @@
                 <div class="work-card" data-category="design" data-title="هوية فعالية كنوز من التاريخ">
                     <div class="work-card-media" onclick="openLightbox('assets/card6_kunooz_tareekh.jpg', 'هوية فعالية كنوز من التاريخ', 'تصميم مواد بصرية تدمج التراث بالأصالة، لتوثيق وعرض القطع التاريخية النادرة لجمهور المركز.', 'تصاميم وهوية', 'إبراز المقتنيات النادرة', 'card6')">
                         <span class="work-card-badge">معارض تراثية</span>
-                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card6')">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span>تغيير الصورة</span>
+                        <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'card6')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                         <img src="assets/card6_kunooz_tareekh.jpg" alt="هوية فعالية كنوز من التاريخ" class="work-card-img" data-img-key="card6">
                     </div>
@@ -2418,9 +2413,8 @@
                 <div class="work-card" data-category="story" data-title="محاور السرد المتحفي والتجربة المعرفية">
                     <div class="work-card-media" onclick="openLightbox('assets/card7_sard_mathafi.jpg', 'محاور السرد المتحفي والتجربة المعرفية', 'تطوير وتصميم محاور السرد لرحلة الزائر، بما يضمن تسلسلاً معرفياً ملهماً للخط وتطوره التاريخي.', 'سرد وفعاليات', 'تسلسل معرفي ملهم', 'card7')">
                         <span class="work-card-badge">سرد متحفي</span>
-                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card7')">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span>تغيير الصورة</span>
+                        <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'card7')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                         <img src="assets/card7_sard_mathafi.jpg" alt="محاور السرد المتحفي والتجربة المعرفية" class="work-card-img" data-img-key="card7">
                     </div>
@@ -2442,9 +2436,8 @@
                 <div class="work-card" data-category="story" data-title="ليلة القراءة في المتحف">
                     <div class="work-card-media" onclick="openLightbox('assets/card8_reading_night.jpg', 'ليلة القراءة في المتحف', 'تصميم المطبوعات والمواد التفاعلية لفعالية ليلة القراءة التي تجمع بين الأدب وفنون الخط العربي.', 'سرد وفعاليات', 'تكامل الأدب مع فنون الخط', 'card8')">
                         <span class="work-card-badge">فعاليات تفاعلية</span>
-                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card8')">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span>تغيير الصورة</span>
+                        <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'card8')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                         <img src="assets/card8_reading_night.jpg" alt="ليلة القراءة في المتحف" class="work-card-img" data-img-key="card8">
                     </div>
@@ -2466,9 +2459,8 @@
                 <div class="work-card" data-category="tech" data-title="المؤشرات والإحصائيات للزيارات">
                     <div class="work-card-media" onclick="openLightbox('assets/card9_indicators_stats.jpg', 'المؤشرات والإحصائيات للزيارات', 'لوحة معلومات وتصميم بياني لتحليل أعداد الزوار وجنسياتهم وقياس التفاعل المتحفي وصناعة القرار.', 'أنظمة وتقنية', 'تحليل بيانات 579 زائر', 'card9')">
                         <span class="work-card-badge">بيانات وتحليلات</span>
-                        <button type="button" class="btn-replace-img" title="استبدال هذه الصورة من جهازك" onclick="triggerImageReplace(event, 'card9')">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span>تغيير الصورة</span>
+                        <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'card9')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                         <img src="assets/card9_indicators_stats.jpg" alt="المؤشرات والإحصائيات للزيارات" class="work-card-img" data-img-key="card9">
                     </div>
@@ -2560,32 +2552,32 @@
                         قائمة الدول والجنسيات الموثقة في سجل الزيارات:
                     </span>
                     <div class="nationalities-cloud">
-                        <span class="nation-pill">🇸🇦 المملكة العربية السعودية</span>
-                        <span class="nation-pill">🇺🇸 الولايات المتحدة الأمريكية</span>
-                        <span class="nation-pill">🇬🇧 المملكة المتحدة</span>
-                        <span class="nation-pill">🇫🇷 فرنسا</span>
-                        <span class="nation-pill">🇩🇪 ألمانيا</span>
-                        <span class="nation-pill">🇯🇵 اليابان</span>
-                        <span class="nation-pill">🇰🇷 كوريا الجنوبية</span>
-                        <span class="nation-pill">🇨🇳 الصين</span>
-                        <span class="nation-pill">🇮🇹 إيطاليا</span>
-                        <span class="nation-pill">🇪🇸 إسبانيا</span>
-                        <span class="nation-pill">🇨🇦 كندا</span>
-                        <span class="nation-pill">🇦🇺 أستراليا</span>
-                        <span class="nation-pill">🇹🇷 تركيا</span>
-                        <span class="nation-pill">🇪🇬 مصر</span>
-                        <span class="nation-pill">🇯🇴 الأردن</span>
-                        <span class="nation-pill">🇦🇪 الإمارات العربية المتحدة</span>
-                        <span class="nation-pill">🇵🇰 باكستان</span>
-                        <span class="nation-pill">🇮🇳 الهند</span>
-                        <span class="nation-pill">🇲🇾 ماليزيا</span>
-                        <span class="nation-pill">🇮🇩 إندونيسيا</span>
-                        <span class="nation-pill">🇧🇷 البرازيل</span>
-                        <span class="nation-pill">🇲🇽 المكسيك</span>
-                        <span class="nation-pill">🇳🇱 هولندا</span>
-                        <span class="nation-pill">🇸🇪 السويد</span>
-                        <span class="nation-pill">🇨🇭 سويسرا</span>
-                        <span class="nation-pill">🇷🇺 روسيا</span>
+                        <span class="nation-pill"><img src="assets/flags/sa.png" alt="علم المملكة العربية السعودية" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/sa.png'"> المملكة العربية السعودية</span>
+                        <span class="nation-pill"><img src="assets/flags/us.png" alt="علم الولايات المتحدة الأمريكية" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/us.png'"> الولايات المتحدة الأمريكية</span>
+                        <span class="nation-pill"><img src="assets/flags/gb.png" alt="علم المملكة المتحدة" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/gb.png'"> المملكة المتحدة</span>
+                        <span class="nation-pill"><img src="assets/flags/fr.png" alt="علم فرنسا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/fr.png'"> فرنسا</span>
+                        <span class="nation-pill"><img src="assets/flags/de.png" alt="علم ألمانيا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/de.png'"> ألمانيا</span>
+                        <span class="nation-pill"><img src="assets/flags/jp.png" alt="علم اليابان" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/jp.png'"> اليابان</span>
+                        <span class="nation-pill"><img src="assets/flags/kr.png" alt="علم كوريا الجنوبية" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/kr.png'"> كوريا الجنوبية</span>
+                        <span class="nation-pill"><img src="assets/flags/cn.png" alt="علم الصين" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/cn.png'"> الصين</span>
+                        <span class="nation-pill"><img src="assets/flags/it.png" alt="علم إيطاليا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/it.png'"> إيطاليا</span>
+                        <span class="nation-pill"><img src="assets/flags/es.png" alt="علم إسبانيا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/es.png'"> إسبانيا</span>
+                        <span class="nation-pill"><img src="assets/flags/ca.png" alt="علم كندا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/ca.png'"> كندا</span>
+                        <span class="nation-pill"><img src="assets/flags/au.png" alt="علم أستراليا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/au.png'"> أستراليا</span>
+                        <span class="nation-pill"><img src="assets/flags/tr.png" alt="علم تركيا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/tr.png'"> تركيا</span>
+                        <span class="nation-pill"><img src="assets/flags/eg.png" alt="علم مصر" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/eg.png'"> مصر</span>
+                        <span class="nation-pill"><img src="assets/flags/jo.png" alt="علم الأردن" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/jo.png'"> الأردن</span>
+                        <span class="nation-pill"><img src="assets/flags/ae.png" alt="علم الإمارات العربية المتحدة" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/ae.png'"> الإمارات العربية المتحدة</span>
+                        <span class="nation-pill"><img src="assets/flags/pk.png" alt="علم باكستان" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/pk.png'"> باكستان</span>
+                        <span class="nation-pill"><img src="assets/flags/in.png" alt="علم الهند" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/in.png'"> الهند</span>
+                        <span class="nation-pill"><img src="assets/flags/my.png" alt="علم ماليزيا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/my.png'"> ماليزيا</span>
+                        <span class="nation-pill"><img src="assets/flags/id.png" alt="علم إندونيسيا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/id.png'"> إندونيسيا</span>
+                        <span class="nation-pill"><img src="assets/flags/br.png" alt="علم البرازيل" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/br.png'"> البرازيل</span>
+                        <span class="nation-pill"><img src="assets/flags/mx.png" alt="علم المكسيك" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/mx.png'"> المكسيك</span>
+                        <span class="nation-pill"><img src="assets/flags/nl.png" alt="علم هولندا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/nl.png'"> هولندا</span>
+                        <span class="nation-pill"><img src="assets/flags/se.png" alt="علم السويد" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/se.png'"> السويد</span>
+                        <span class="nation-pill"><img src="assets/flags/ch.png" alt="علم سويسرا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/ch.png'"> سويسرا</span>
+                        <span class="nation-pill"><img src="assets/flags/ru.png" alt="علم روسيا" class="nation-flag" onerror="this.src='https://flagcdn.com/w40/ru.png'"> روسيا</span>
                     </div>
                 </div>
             </div>
@@ -2707,9 +2699,8 @@
             <div class="tech-hero-card">
                 <div class="tech-hero-media">
                     <img src="assets/tech_visitor_screen.jpg" alt="تفاعل الزوار مع الشاشات الرقمية والأنظمة التفاعلية" class="tech-hero-img" data-img-key="tech_screen">
-                    <button type="button" class="btn-replace-img" title="استبدال صورة الشاشة التفاعلية" onclick="triggerImageReplace(event, 'tech_screen')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                        <span>تغيير الصورة</span>
+                    <button type="button" class="btn-replace-img" title="تعديل وتغيير الصورة" aria-label="تعديل وتغيير الصورة" onclick="triggerImageReplace(event, 'tech_screen')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                     </button>
                 </div>
                 <div class="tech-hero-content">
